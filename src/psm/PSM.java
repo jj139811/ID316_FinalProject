@@ -56,6 +56,14 @@ public class PSM extends XApp{
         return this.mBrushMgr;
     }
     
+<<<<<<< HEAD
+=======
+    private PSMXForm mPSMXForm = null;
+    public PSMXForm getXForm() {
+        return this.mPSMXForm;
+    }
+    
+>>>>>>> f36cfa8 (temp)
     
     //private constructor
     private PSM() {
@@ -70,6 +78,10 @@ public class PSM extends XApp{
         
         this.mFrame = new JFrame("ParallaxSceneMaker");
         this.mCanvas2D = new PSMCanvas2D();
+<<<<<<< HEAD
+=======
+        this.mPSMXForm = new PSMXForm();
+>>>>>>> f36cfa8 (temp)
         
         //connect event listeners 
         this.mCanvas2D.addMouseListener(this.mEventListener);
@@ -83,6 +95,12 @@ public class PSM extends XApp{
         this.mFrame.setResizable(false);
         this.mFrame.setVisible(true);
         this.mFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+<<<<<<< HEAD
+=======
+        
+        //LOG_ON
+        this.mLogMgr.setPrintOn(true);
+>>>>>>> f36cfa8 (temp)
     }
     public static void main(String[] args) {
         PSM psmInstance = PSM.getSingleton();
