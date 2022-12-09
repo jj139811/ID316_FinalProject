@@ -5,13 +5,13 @@ import X.XLoggableCmd;
 import java.awt.Point;
 import java.awt.geom.Point2D;
 import psm.PSM;
+import psm.PSMGestureMgr;
 
 
 public class PSMCmdToSetStartingScreenPt extends XLoggableCmd{
     //field
     Point mScreenPt = null;
     //private constructor
-    //private JSICmdToDoSomething (XApp app, ...) {
     private PSMCmdToSetStartingScreenPt(XApp app, Point pt) {
         super(app);
         this.mScreenPt = pt;
@@ -27,7 +27,8 @@ public class PSMCmdToSetStartingScreenPt extends XLoggableCmd{
     @Override
     protected boolean defineCmd() {
         PSM psm = (PSM) this.mApp; 
-        psm.getXForm().setStartScreenPt(mScreenPt);
+        PSMGestureMgr gestureMgr = PSMGestureMgr.getSingleton();
+        gestureMgr.setStartingPt(mScreenPt);
         return true;
     }
 

@@ -9,19 +9,19 @@ import psm.PSMGestureMgr;
 import psm.PSMScreenMgr;
 
 
-public class PSMCmdToZoomTo extends XLoggableCmd{
+public class PSMCmdToPan extends XLoggableCmd{
     //field
     Point mScreenPt = null;
     //private constructor
     //private JSICmdToDoSomething (XApp app, ...) {
-    private PSMCmdToZoomTo(XApp app, Point pt) {
+    private PSMCmdToPan(XApp app, Point pt) {
         super(app);
         this.mScreenPt = pt;
     }
     
     //public static boolean execute(XApp app ,Point pt) {
     public static boolean execute(XApp app, Point pt) {
-        PSMCmdToZoomTo cmd = new PSMCmdToZoomTo(app, pt);
+        PSMCmdToPan cmd = new PSMCmdToPan(app, pt);
         return cmd.execute();
     }
     
@@ -29,23 +29,13 @@ public class PSMCmdToZoomTo extends XLoggableCmd{
     @Override
     protected boolean defineCmd() {
         PSM psm = (PSM) this.mApp; 
-        //pivot 중심으로 recent point만큼 떨어진 거리의 인버스로 Camera scale 조절 
+        //pan camera comd(가장 recent한 point로 set position??)
         float screenPtX = this.mScreenPt.x;
         float screenPtY = this.mScreenPt.y;
         PSMGestureMgr gestureMgr = PSMGestureMgr.getSingleton();
+        
         PSMScreenMgr screenMgr = PSMScreenMgr.getSingleton();
-        
-        
-        //calculate scaling factor
-        float d0 = (float) PSMGestureMgr.PIVOT_PT.distance(gestureMgr.getStartingPt());
-        if (d0 < PSMGestureMgr.MIN_START_ARM_LENGTH_FOR_SCALING){
-            return false;
-        }
-        float d1 = (float) PSMGestureMgr.PIVOT_PT.distance(this.mScreenPt);
-        float s = d1/d0;
-        
-        //scale camera by scaling factor 
-        screenMgr.getCamera().setScale(s, s);
+        screenMgr.getCamera().setPosition(screenPtX, screenPtY);
         
         return true;
     }

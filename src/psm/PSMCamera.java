@@ -70,7 +70,7 @@ public class PSMCamera {
         this.scaleX = this.stackScaleX;
         this.scaleY = this.stackScaleY;
     }
-    public void move(int dx, int dy) {
+    public void move(float dx, float dy) {
         this.setPosition(this.x + dx, this.y + dy);
     }
 }

@@ -45,11 +45,18 @@ public class PSM extends XApp{
     }
     
     private PSMLayerMgr mLayerMgr = null;
+    public PSMLayerMgr getLayerMgr() {
+        return this.mLayerMgr;
+    }
+    
     private PSMAnimationMgr mAnimationMgr = null;
     public PSMAnimationMgr getAnimationMgr() {
         return this.mAnimationMgr;
     }
     private PSMScreenMgr mScreenMgr = null;
+    public PSMScreenMgr getScreenMgr() {
+        return this.mScreenMgr;
+    }
     private PSMEventListener mEventListener = null;
     private PSMBrushMgr mBrushMgr = null;
     public PSMBrushMgr getBrushMgr() {
@@ -59,6 +66,11 @@ public class PSM extends XApp{
     private PSMXForm mPSMXForm = null;
     public PSMXForm getXForm() {
         return this.mPSMXForm;
+    }
+    
+    private PSMGestureMgr mGestureMgr = null;
+    public PSMGestureMgr getGestureMgr() {
+        return this.mGestureMgr;
     }
     
     //private constructor
@@ -76,6 +88,7 @@ public class PSM extends XApp{
         this.mCanvas2D = new PSMCanvas2D();
 
         this.mPSMXForm = new PSMXForm();
+        this.mGestureMgr = new PSMGestureMgr();
 
         
         //connect event listeners 
