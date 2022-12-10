@@ -9,6 +9,9 @@ public class PSMLayerMgr {
     //constant
     public static final int PANEL_WIDTH = 400;
     public static final int PANEL_HEIGHT = 300;
+    
+    public static final int CHAR_WIDTH = 100;
+    public static final int CHAR_HEIGHT = 150;
     //singleton
     private static PSMLayerMgr instance = null;
     public static PSMLayerMgr getSingleton() {
@@ -25,7 +28,7 @@ public class PSMLayerMgr {
         return this.mFocusedLayer;
     }
     public void setFocusedLayer(PSMLayer layer) {
-        assert(this.mLayers.contains(layer));
+        assert(this.mLayers.contains(layer) || layer == this.mCharLayer);
         this.mFocusedLayer = layer;
         this.mFocusedIndex = this.mLayers.indexOf(layer);
     }
@@ -37,7 +40,9 @@ public class PSMLayerMgr {
     public void setFocusedIndex(int index) {
         int i = index;
         if (i < 0) {
-            i = 0;
+            this.mFocusedLayer = this.mCharLayer;
+            this.mFocusedIndex = -1;
+            return;
         }
         if (i >= this.mLayers.size()) {
             i = this.mLayers.size() - 1;
@@ -46,9 +51,15 @@ public class PSMLayerMgr {
         this.mFocusedIndex = i;
     }
     
+    private PSMCharLayer mCharLayer = null;
+    public PSMCharLayer getCharLayer() {
+        return this.mCharLayer;
+    }
+    
     //constructor
     private PSMLayerMgr() {
         this.mLayers = new ArrayList<>();
+        this.mCharLayer = new PSMCharLayer();
     }
     
     //method
@@ -96,17 +107,36 @@ public class PSMLayerMgr {
                 (int)(PANEL_WIDTH / scaleX),
                 (int)(PANEL_HEIGHT / scaleY), true);
         }
+        
+        if (this.mFocusedLayer == this.mCharLayer) {
+            Point2D.Float charLayerPt = screenMgr.screenPtToWorldPt(
+                new Point(PSM.CANVAS_WIDTH / 2, PSM.CANVAS_HEIGHT / 2));
+            this.mCharLayer.setPosition(charLayerPt.x, charLayerPt.y, true);
+            this.mCharLayer.setSize(
+                (int)(CHAR_WIDTH / scaleX),
+                (int)(CHAR_HEIGHT / scaleY), true);
+        } else {
+            Point2D.Float charLayerPt = screenMgr.screenPtToWorldPt(
+                new Point(CHAR_WIDTH / 2, PSM.CANVAS_HEIGHT - CHAR_HEIGHT / 2));
+            this.mCharLayer.setPosition(charLayerPt.x, charLayerPt.y, true);
+            this.mCharLayer.setSize(
+                (int)(CHAR_WIDTH / scaleX),
+                (int)(CHAR_HEIGHT / scaleY), true);
+        }
     }
     public void arrangeLayersToViewFormat(PSMCamera camera) {
         for (PSMLayer layer : this.mLayers) {
             layer.syncPosition(camera, true);
             layer.setSize(layer.getImgWidth(), layer.getImgHeight(), true);
         }
+        this.mCharLayer.syncPosition(camera, true);
+        this.mCharLayer.setSize(CHAR_WIDTH, CHAR_HEIGHT, true);
     }
     
     public void drawLayers(Graphics2D g) {
         for (PSMLayer layer : this.mLayers) {
             layer.render(g);
         }
+        this.mCharLayer.render(g);
     }
 }

@@ -108,10 +108,10 @@ public class PSMGuiMgr {
             enableAnimation);
         this.mNewLayer.setVisible(true);
         
-        this.mCharLayer.setPosition(-PSMLayerMgr.PANEL_WIDTH,
+        this.mCharLayer.setPosition(-PSMLayerMgr.CHAR_WIDTH,
             PSM.CANVAS_HEIGHT, enableAnimation);
-        this.mCharLayer.setSize(PSMLayerMgr.PANEL_WIDTH,
-            PSMLayerMgr.PANEL_HEIGHT,
+        this.mCharLayer.setSize(PSMLayerMgr.CHAR_WIDTH,
+            PSMLayerMgr.CHAR_HEIGHT,
             enableAnimation);
         this.mCharLayer.setVisible(true);
         
@@ -141,10 +141,10 @@ public class PSMGuiMgr {
         this.mNewLayer.setVisible(true);
         
         this.mCharLayer.setPosition(
-            -PSMLayerMgr.PANEL_WIDTH / 2,
-            PSM.CANVAS_HEIGHT - PSMLayerMgr.PANEL_HEIGHT / 2, enableAnimation);
-        this.mCharLayer.setSize(PSMLayerMgr.PANEL_WIDTH,
-            PSMLayerMgr.PANEL_HEIGHT,
+            0,
+            PSM.CANVAS_HEIGHT - PSMLayerMgr.CHAR_HEIGHT, enableAnimation);
+        this.mCharLayer.setSize(PSMLayerMgr.CHAR_WIDTH,
+            PSMLayerMgr.CHAR_HEIGHT,
             enableAnimation);
         this.mCharLayer.setVisible(true);
         
