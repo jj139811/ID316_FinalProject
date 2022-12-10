@@ -13,6 +13,7 @@ import psm.PSMLayerMgr;
 import psm.PSMScene;
 import psm.PSMScreenMgr;
 import psm.cmd.PSMCmdToPan;
+import psm.cmd.PSMCmdToSetStartingScreenPt;
 import psm.cmd.PSMCmdToZoomTo;
 
 
@@ -66,15 +67,11 @@ public class PSMNavigateScenario extends XScenario {
             PSMCamera cam = PSMScreenMgr.getSingleton().getCamera();
             PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
             Point pt = e.getPoint();
+            
+            PSMCmdToSetStartingScreenPt.execute(psm, e.getPoint());
             XCmdToChangeScene.execute(psm,
                 PSMNavigateScenario.PanScene.getSingleton(),
                 this.mReturnScene);
-            //set starting point method
-            psm.getGestureMgr().setStartingPt(pt);
-            
-            
-            
-
         }
 
         @Override
@@ -151,16 +148,16 @@ public class PSMNavigateScenario extends XScenario {
 
         @Override
         public void handleMousePress(MouseEvent e) {
-
+            
         }
 
         @Override
         public void handleMouseDrag(MouseEvent e) {
             //Translate camera to method
             PSM psm = PSM.getSingleton();
+            PSMScreenMgr screenMgr = PSMScreenMgr.getSingleton();
             Point pt = e.getPoint();
             PSMCmdToPan.execute(psm, pt);
-            
         }
 
         @Override

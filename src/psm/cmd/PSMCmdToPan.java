@@ -28,14 +28,19 @@ public class PSMCmdToPan extends XLoggableCmd{
     
     @Override
     protected boolean defineCmd() {
-        PSM psm = (PSM) this.mApp; 
-        //pan camera comd(가장 recent한 point로 set position??)
-        float screenPtX = this.mScreenPt.x;
-        float screenPtY = this.mScreenPt.y;
+        PSM psm = (PSM) this.mApp;
         PSMGestureMgr gestureMgr = PSMGestureMgr.getSingleton();
-        
         PSMScreenMgr screenMgr = PSMScreenMgr.getSingleton();
-        screenMgr.getCamera().setPosition(screenPtX, screenPtY);
+        
+        Point2D.Float startingCamPos = gestureMgr.getStartingCameraPos();
+        Point startingPt = gestureMgr.getStartingPt();
+        float diffX = (this.mScreenPt.x - startingPt.x) /
+            screenMgr.getCamera().getScaleX();
+        float diffY = (this.mScreenPt.y - startingPt.y) /
+            screenMgr.getCamera().getScaleY();
+        
+        screenMgr.getCamera().setPosition(startingCamPos.x - diffX,
+            startingCamPos.y - diffY);
         
         return true;
     }

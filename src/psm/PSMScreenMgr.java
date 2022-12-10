@@ -26,6 +26,9 @@ public class PSMScreenMgr {
     
     //method
     public Point2D.Float screenPtToWorldPt(Point pt) {
+        if (pt == null) {
+            return null;
+        }
         int x = pt.x;
         int y = pt.y;
         PSMCamera camera = this.mCamera;
