@@ -21,6 +21,7 @@ public class PSMGestureMgr {
     private Point mStartingPt = null;
     private Point2D.Float mStartingWorldPt = null;
     private Point2D.Float mStartingCameraPos = null;
+    private Point2D.Float mStartingCameraScale = null;
     public Point getStartingPt() {
         return this.mStartingPt;
     }
@@ -30,6 +31,9 @@ public class PSMGestureMgr {
     public Point2D.Float getStartingCameraPos() {
         return this.mStartingCameraPos;
     }
+    public Point2D.Float getStartingCameraScale() {
+        return this.mStartingCameraScale;
+    }
     
     public void setStartingPt(Point pt) {
         PSMCamera cam = PSMScreenMgr.getSingleton().getCamera();
@@ -38,6 +42,8 @@ public class PSMGestureMgr {
             screenPtToWorldPt(pt);
         this.mStartingCameraPos = new Point2D.Float(
             cam.getX(), cam.getY());
+        this.mStartingCameraScale = new Point2D.Float(
+            cam.getScaleX(), cam.getScaleY());
     }
     
     //constructor
