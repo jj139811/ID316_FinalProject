@@ -12,6 +12,7 @@ import psm.PSMLayer;
 import psm.PSMLayerMgr;
 import psm.PSMScene;
 import psm.PSMScreenMgr;
+import psm.gui.PSMGuiMgr;
 
 
 public class PSMLayerManageScenario extends XScenario {
@@ -98,9 +99,11 @@ public class PSMLayerManageScenario extends XScenario {
             PSM psm = (PSM) this.mScenario.getApp();
             PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
             PSMCamera cam = PSMScreenMgr.getSingleton().getCamera();
+            PSMGuiMgr guiMgr = PSMGuiMgr.getSingleton();
             int code = e.getKeyCode();
             switch (code) {
                 case KeyEvent.VK_SPACE:
+                    guiMgr.arrangeUisToViewFormat(true);
                     layerMgr.arrangeLayersToViewFormat(cam);
                     XCmdToChangeScene.execute(psm,
                         PSMDefaultScenario.ReadyScene.getSingleton(),

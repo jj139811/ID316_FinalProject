@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 public class PSMLayerMgr {
     //constant
-    private static final int PANEL_WIDTH = 400;
-    private static final int PANEL_HEIGHT = 300;
+    public static final int PANEL_WIDTH = 400;
+    public static final int PANEL_HEIGHT = 300;
     //singleton
     private static PSMLayerMgr instance = null;
     public static PSMLayerMgr getSingleton() {

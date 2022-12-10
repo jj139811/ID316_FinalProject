@@ -5,6 +5,7 @@ import X.XLogMgr;
 import X.XScenarioMgr;
 import javax.swing.JFrame;
 import psm.animation.PSMAnimationMgr;
+import psm.gui.PSMGuiMgr;
 
 public class PSM extends XApp{
     //constant
@@ -62,6 +63,11 @@ public class PSM extends XApp{
     public PSMBrushMgr getBrushMgr() {
         return this.mBrushMgr;
     }
+    
+    private PSMGuiMgr mGuiMgr = null;
+    public PSMGuiMgr getGuiMgr() {
+        return this.mGuiMgr;
+    }
 
     private PSMXForm mPSMXForm = null;
     public PSMXForm getXForm() {
@@ -83,6 +89,7 @@ public class PSM extends XApp{
         this.mScreenMgr = PSMScreenMgr.getSingleton();
         this.mEventListener = PSMEventListener.getSingleton();
         this.mBrushMgr = PSMBrushMgr.getSingleton();
+        this.mGuiMgr = PSMGuiMgr.getSingleton();
         
         this.mFrame = new JFrame("ParallaxSceneMaker");
         this.mCanvas2D = new PSMCanvas2D();
@@ -122,6 +129,7 @@ public class PSM extends XApp{
             
         layerMgr.setFocusedLayer(focusedLayer);
         PSMScreenMgr.getSingleton().getCamera().setScale(0.5f, 0.5f);
+        PSMGuiMgr.getSingleton().arrangeUisToViewFormat(false);
     }
     
 }

@@ -9,7 +9,7 @@ import java.awt.geom.Rectangle2D;
 import psm.PSMCamera;
 import psm.PSMScreenMgr;
 
-public abstract class PSMAnimatableObject {
+public abstract class PSMAnimatableObject extends PSMAnimatable{
     //test
     private static final boolean DRAW_BOX = true;
     //constant
@@ -75,6 +75,7 @@ public abstract class PSMAnimatableObject {
     
     //constructor
     public PSMAnimatableObject(float x, float y, float width, float height) {
+        super();
         this.x = x;
         this.y = y;
         this.w = width;
@@ -92,8 +93,6 @@ public abstract class PSMAnimatableObject {
         
         this.mTimeElapsed = 0;
         this.mIsMoving = false;
-        
-        PSMAnimationMgr.getSingleton().addObject(this);
     }
     
     //method
@@ -107,6 +106,7 @@ public abstract class PSMAnimatableObject {
         
         this.mIsMoving = true;
     }
+    @Override
     public final void update(long t) {
         if(!this.mIsMoving){
             return;
@@ -153,9 +153,6 @@ public abstract class PSMAnimatableObject {
             g.setStroke(new BasicStroke(0.5f));
             g.draw(boundingBox);
         }
-    }
-    public void destroy() {
-        PSMAnimationMgr.getSingleton().removeObject(this);
     }
 
     //abstract method

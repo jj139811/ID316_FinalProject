@@ -16,19 +16,19 @@ public class PSMAnimationMgr extends Thread{
     }
     
     //field
-    private ArrayList<PSMAnimatableObject> mAnimatableObjects = null;
+    private ArrayList<PSMAnimatable> mAnimatables = null;
     
     //constructor
     private PSMAnimationMgr() {
-        this.mAnimatableObjects = new ArrayList<>();
+        this.mAnimatables = new ArrayList<>();
     }
     
     //method
-    public void addObject(PSMAnimatableObject target) {
-        this.mAnimatableObjects.add(target);
+    public void add(PSMAnimatable target) {
+        this.mAnimatables.add(target);
     }
-    public void removeObject(PSMAnimatableObject target) {
-        this.mAnimatableObjects.remove(target);
+    public void remove(PSMAnimatable target) {
+        this.mAnimatables.remove(target);
     }
     
     //thread
@@ -40,7 +40,7 @@ public class PSMAnimationMgr extends Thread{
             currentTime = System.currentTimeMillis();
             long dt = currentTime - prevTime;
             if (dt >= FRAME_TIME_MILLIS) {
-                for (PSMAnimatableObject obj : this.mAnimatableObjects) {
+                for (PSMAnimatable obj : this.mAnimatables) {
                     obj.update(dt);
                 }
                 prevTime = currentTime; 

@@ -3,6 +3,7 @@ package psm;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
+import psm.gui.PSMGuiMgr;
 
 public class PSMCanvas2D extends JPanel{
     //constructor
@@ -17,7 +18,7 @@ public class PSMCanvas2D extends JPanel{
         PSMScene curScene = (PSMScene)psm.getScenarioMgr().getCurScene();
         curScene.renderWorldObjects(g2);
         
-        //test
         PSMBrushMgr.getSingleton().drawCurLine(g2);
+        PSMGuiMgr.getSingleton().renderGuis(g2);
     }
 }

@@ -3,16 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/PSMScreenMgr.java</file>
-            <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/scenario/PSMTestScenario.java</file>
-            <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/animation/PSMAnimationMgr.java</file>
-            <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/PSMBrushMgr.java</file>
-            <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/PSMLayer.java</file>
-            <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/PSMScenarioMgr.java</file>
-            <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/animation/PSMAnimatableObject.java</file>
+            <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/PSMCanvas2D.java</file>
+            <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/scenario/PSMLayerManageScenario.java</file>
+            <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/scenario/PSMDefaultScenario.java</file>
+            <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/gui/PSMGuiMgr.java</file>
             <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/PSMLayerMgr.java</file>
+            <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/gui/PSMGui.java</file>
             <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/PSM.java</file>
-            <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/PSMCamera.java</file>
         </group>
     </open-files>
 </project-private>
