@@ -62,19 +62,18 @@ public class PSMDrawScenario extends XScenario {
         @Override
         public void handleMouseDrag(MouseEvent e) {
             PSM psm = (PSM) this.mScenario.getApp();
+            PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
             Point pt = e.getPoint();
             PSMBrushMgr brushMgr = PSMBrushMgr.getSingleton();
-            brushMgr.addPt(e.getPoint());
-            //brushMgr.drawCurLine();
-            
+            brushMgr.addPt(pt);
+            brushMgr.applyCurLineToLayer(layerMgr.getFocusedLayer());
         }
 
         @Override
         public void handleMouseRelease(MouseEvent e) {
             PSM psm = (PSM) this.mScenario.getApp();
             PSMBrushMgr brushMgr = PSMBrushMgr.getSingleton();
-            PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
-            brushMgr.applyCurLineToLayer(layerMgr.getFocusedLayer());
+            brushMgr.clear();
             XCmdToChangeScene.execute(psm, 
                 PSMDefaultScenario.ReadyScene.getSingleton(), null);
         }
@@ -102,7 +101,7 @@ public class PSMDrawScenario extends XScenario {
 
         @Override
         public void renderScreenObjects(Graphics2D g2) {
-            PSMBrushMgr.getSingleton().drawCurLine(g2);
+            
         }
 
         @Override

@@ -79,9 +79,11 @@ public class PSMEraseScenario extends XScenario {
 
         @Override
         public void handleKeyUp(KeyEvent e) {
+            PSMBrushMgr brushMgr = PSMBrushMgr.getSingleton();
             int code = e.getKeyCode();
             switch (code) {
                 case KeyEvent.VK_E:
+                    brushMgr.clear();
                     XCmdToChangeScene.execute(PSM.getSingleton(),
                         this.mReturnScene,
                         null);
@@ -140,19 +142,18 @@ public class PSMEraseScenario extends XScenario {
         @Override
         public void handleMouseDrag(MouseEvent e) {
             PSM psm = (PSM) this.mScenario.getApp();
+            PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
             Point pt = e.getPoint();
             PSMBrushMgr brushMgr = PSMBrushMgr.getSingleton();
             brushMgr.addPt(e.getPoint());
-            //brushMgr.drawCurLine();
-            
+            brushMgr.eraseLayerWithCurLine(layerMgr.getFocusedLayer());
         }
 
         @Override
         public void handleMouseRelease(MouseEvent e) {
             PSM psm = (PSM) this.mScenario.getApp();
             PSMBrushMgr brushMgr = PSMBrushMgr.getSingleton();
-            PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
-            brushMgr.eraseLayerWithCurLine(layerMgr.getFocusedLayer());
+            brushMgr.clear();
             XCmdToChangeScene.execute(psm, 
                 PSMDefaultScenario.ReadyScene.getSingleton(), null);
         }
@@ -164,9 +165,11 @@ public class PSMEraseScenario extends XScenario {
 
         @Override
         public void handleKeyUp(KeyEvent e) {
+            PSMBrushMgr brushMgr = PSMBrushMgr.getSingleton();
             int code = e.getKeyCode();
             switch (code) {
                 case KeyEvent.VK_E:
+                    brushMgr.clear();
                     XCmdToChangeScene.execute(PSM.getSingleton(),
                         this.mReturnScene,
                         null);
@@ -187,9 +190,7 @@ public class PSMEraseScenario extends XScenario {
 
         @Override
         public void renderScreenObjects(Graphics2D g2) {
-            g2.setComposite(AlphaComposite.Clear);
-            PSMBrushMgr.getSingleton().drawCurLine(g2);
-            g2.setComposite(AlphaComposite.SrcOver);
+            
         }
 
         @Override

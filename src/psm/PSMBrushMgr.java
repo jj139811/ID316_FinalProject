@@ -33,6 +33,8 @@ public class PSMBrushMgr {
         this.mCurStroke = new BasicStroke(width);
     }
     
+    private int mAppliedIndex = 0;
+    
     //constructor
     private PSMBrushMgr() {
         this.mCurLine = new ArrayList<>();
@@ -79,18 +81,18 @@ public class PSMBrushMgr {
         ArrayList<Point> pts = this.mCurLine;
         
         Point2D.Float pt0 = targetLayer.worldPtToLayerLocalPt(
-            screenMgr.screenPtToWorldPt(pts.get(0)));
+            screenMgr.screenPtToWorldPt(pts.get(this.mAppliedIndex)));
         path.moveTo(pt0.x, pt0.y);
-        for (int i = 1 ; i < pts.size() ; i++) {
+        for (int i = this.mAppliedIndex + 1 ; i < pts.size() ; i++) {
             Point2D.Float pt = targetLayer.worldPtToLayerLocalPt(
                 screenMgr.screenPtToWorldPt(pts.get(i)));
             path.lineTo(pt.x, pt.y);
+            this.mAppliedIndex = i;
         }
         
         g.setColor(this.mCurColor);
         g.setStroke(this.mCurStroke);
         g.draw(path);
-        this.mCurLine.clear();
     }
     
     public void eraseLayerWithCurLine(PSMLayer targetLayer) {
@@ -108,12 +110,13 @@ public class PSMBrushMgr {
         ArrayList<Point> pts = this.mCurLine;
         
         Point2D.Float pt0 = targetLayer.worldPtToLayerLocalPt(
-            screenMgr.screenPtToWorldPt(pts.get(0)));
+            screenMgr.screenPtToWorldPt(pts.get(this.mAppliedIndex)));
         path.moveTo(pt0.x, pt0.y);
-        for (int i = 1 ; i < pts.size() ; i++) {
+        for (int i = this.mAppliedIndex + 1; i < pts.size() ; i++) {
             Point2D.Float pt = targetLayer.worldPtToLayerLocalPt(
                 screenMgr.screenPtToWorldPt(pts.get(i)));
             path.lineTo(pt.x, pt.y);
+            this.mAppliedIndex = i;
         }
         
         g.setComposite(AlphaComposite.Clear);
@@ -121,8 +124,12 @@ public class PSMBrushMgr {
         g.setColor(this.mCurColor);
         g.setStroke(this.mCurStroke);
         g.draw(path);
-        this.mCurLine.clear();
         
         g.setComposite(AlphaComposite.SrcOver);
+    }
+    
+    public void clear() {
+        this.mAppliedIndex = 0;
+        this.mCurLine.clear();
     }
 }
