@@ -1,5 +1,6 @@
 package psm;
 
+import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -90,5 +91,38 @@ public class PSMBrushMgr {
         g.setStroke(this.mCurStroke);
         g.draw(path);
         this.mCurLine.clear();
+    }
+    
+    public void eraseLayerWithCurLine(PSMLayer targetLayer) {
+        Graphics2D g = targetLayer.getGraphics();
+        if (g == null) {
+            return;
+        }
+        if (this.mCurLine.isEmpty()) {
+            return;
+        }
+        PSMScreenMgr screenMgr = PSMScreenMgr.getSingleton();
+        
+        Path2D.Float path  = new Path2D.Float();
+        
+        ArrayList<Point> pts = this.mCurLine;
+        
+        Point2D.Float pt0 = targetLayer.worldPtToLayerLocalPt(
+            screenMgr.screenPtToWorldPt(pts.get(0)));
+        path.moveTo(pt0.x, pt0.y);
+        for (int i = 1 ; i < pts.size() ; i++) {
+            Point2D.Float pt = targetLayer.worldPtToLayerLocalPt(
+                screenMgr.screenPtToWorldPt(pts.get(i)));
+            path.lineTo(pt.x, pt.y);
+        }
+        
+        g.setComposite(AlphaComposite.Clear);
+        
+        g.setColor(this.mCurColor);
+        g.setStroke(this.mCurStroke);
+        g.draw(path);
+        this.mCurLine.clear();
+        
+        g.setComposite(AlphaComposite.SrcOver);
     }
 }

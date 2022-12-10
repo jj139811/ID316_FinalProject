@@ -4,6 +4,7 @@ import X.XApp;
 import X.XScenarioMgr;
 import psm.scenario.PSMDefaultScenario;
 import psm.scenario.PSMDrawScenario;
+import psm.scenario.PSMEraseScenario;
 import psm.scenario.PSMLayerManageScenario;
 import psm.scenario.PSMNavigateScenario;
 import psm.scenario.PSMTestScenario;
@@ -19,6 +20,7 @@ public class PSMScenarioMgr extends XScenarioMgr{
         this.addScenario(PSMDrawScenario.createSingleton(this.mApp));
         this.addScenario(PSMLayerManageScenario.createSingleton(this.mApp));
         this.addScenario(PSMNavigateScenario.createSingleton(this.mApp));
+        this.addScenario(PSMEraseScenario.createSingleton(this.mApp));
     }
 
     @Override

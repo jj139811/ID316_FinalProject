@@ -7,7 +7,6 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Point2D;
 import psm.PSM;
 import psm.PSMBrushMgr;
 import psm.PSMLayerMgr;
@@ -103,7 +102,7 @@ public class PSMDrawScenario extends XScenario {
 
         @Override
         public void renderScreenObjects(Graphics2D g2) {
-            
+            PSMBrushMgr.getSingleton().drawCurLine(g2);
         }
 
         @Override

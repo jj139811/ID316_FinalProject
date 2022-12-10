@@ -17,8 +17,7 @@ public class PSMCanvas2D extends JPanel{
         PSM psm = PSM.getSingleton();
         PSMScene curScene = (PSMScene)psm.getScenarioMgr().getCurScene();
         curScene.renderWorldObjects(g2);
-        
-        PSMBrushMgr.getSingleton().drawCurLine(g2);
+        curScene.renderScreenObjects(g2);
         PSMGuiMgr.getSingleton().renderGuis(g2);
     }
 }
