@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-public class PSMGuiHandle extends PSMGui{
+public class PSMGuiHandle extends PSMFollowingGui{
     public PSMGuiHandle(int x, int y, int width, int height) {
         super(x, y, width, height);
     }
