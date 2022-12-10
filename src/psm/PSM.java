@@ -122,10 +122,10 @@ public class PSM extends XApp{
         
         // Test
         PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
-        PSMLayer focusedLayer = new PSMLayer(0.0f);
+        PSMBgLayer focusedLayer = new PSMBgLayer(0.0f);
         layerMgr.addLayer(focusedLayer);
-        layerMgr.addLayer(new PSMLayer(0.5f));
-        layerMgr.addLayer(new PSMLayer(1.0f));
+        layerMgr.addLayer(new PSMBgLayer(0.5f));
+        layerMgr.addLayer(new PSMBgLayer(1.0f));
             
         layerMgr.setFocusedLayer(focusedLayer);
         PSMScreenMgr.getSingleton().getCamera().setScale(0.5f, 0.5f);

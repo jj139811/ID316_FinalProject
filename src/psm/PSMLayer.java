@@ -5,7 +5,7 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import psm.animation.PSMAnimatableObject;
 
-public class PSMLayer extends PSMAnimatableObject{
+public abstract class PSMLayer extends PSMAnimatableObject{
     //constant
     public static final float MAX_FACTOR = 1.0f;
     public static final float MIN_FACTOR = -2.0f;
@@ -27,37 +27,30 @@ public class PSMLayer extends PSMAnimatableObject{
     public float getFactor() {
         return this.mFactor;
     }
-    public final void setFactor(float factor) {
+    public abstract void setFactor(float factor);
+    protected final void clipFactor(float factor) {
         float value = factor;
         if (value > MAX_FACTOR) {
             value = MAX_FACTOR;
         } else if (value < MIN_FACTOR) {
             value = MIN_FACTOR;
         }
-        if (this.mFactor != value) {
-            this.mFactor = value;
-            this.initImage(value);
-        }
+        this.mFactor = value;
     }
     
     //constructor
-    public PSMLayer(float factor) {
-        super(0, 0,
-            (int)(PSM.CANVAS_WIDTH + (1.0f - factor) * PSM.CAMERA_BOUND_X),
-            (int)(PSM.CANVAS_HEIGHT + (1.0f - factor) * PSM.CAMERA_BOUND_Y));
-        this.setFactor(factor);
+    public PSMLayer(float x, float y, float width, float height, float factor) {
+        super(x, y, width, height);
+        this.clipFactor(factor);
+        this.initImage();
     }
     
     //method
-    protected void initImage(float factor) {
-        int width =
-            (int)(PSM.CANVAS_WIDTH + (1.0f - factor) * PSM.CAMERA_BOUND_X);
-        int height = 
-            (int)(PSM.CANVAS_HEIGHT + (1.0f - factor) * PSM.CAMERA_BOUND_Y);
-        
-        BufferedImage img = new BufferedImage(width, height,
-            BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g = img.createGraphics();
+    protected void initImage() {
+        BufferedImage newImage = this.createImage();
+        Graphics2D g = newImage.createGraphics();
+        int width = newImage.getWidth();
+        int height = newImage.getHeight();
         
         if (this.mContent != null) {
             g.drawImage(this.mContent,
@@ -65,11 +58,12 @@ public class PSMLayer extends PSMAnimatableObject{
                 (int)((height - this.mImgHeight) / 2), null);
         }
         
-        this.mContent = img;
+        this.mContent = newImage;
         this.mGraphics = g;
         this.mImgWidth = width;
         this.mImgHeight = height;
     }
+    protected abstract BufferedImage createImage();
     
     public void syncPosition(PSMCamera camera, boolean enableAnimation) {
         
