@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Stroke;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -65,6 +66,16 @@ public class PSMBrushMgr {
         g.setStroke(new BasicStroke(this.mCurStrokeWidth *
             PSMScreenMgr.getSingleton().getCamera().getScaleX()));
         g.draw(path);
+    }
+    public void drawPen(Graphics2D g, Point pt) {
+        PSMCamera cam = PSMScreenMgr.getSingleton().getCamera();
+        float rx = this.mCurStrokeWidth * cam.getScaleX();
+        float ry = this.mCurStrokeWidth * cam.getScaleY();
+        Ellipse2D circle = new Ellipse2D.Float(
+            (float)pt.x - rx / 2, (float)pt.y - ry / 2,
+            rx, ry);
+        g.setColor(this.mCurColor);
+        g.draw(circle);
     }
     public void applyCurLineToLayer(PSMLayer targetLayer) {
         Graphics2D g = targetLayer.getGraphics();

@@ -9,8 +9,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import psm.PSM;
 import psm.PSMBrushMgr;
+import psm.PSMGestureMgr;
 import psm.PSMLayerMgr;
 import psm.PSMScene;
+import psm.cmd.PSMCmdToSetStartingScreenPt;
+import psm.cmd.PSMCmdToUpdatePt;
 
 
 public class PSMDrawScenario extends XScenario {
@@ -65,6 +68,7 @@ public class PSMDrawScenario extends XScenario {
             PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
             Point pt = e.getPoint();
             PSMBrushMgr brushMgr = PSMBrushMgr.getSingleton();
+            PSMCmdToUpdatePt.execute(psm, pt);
             brushMgr.addPt(pt);
             brushMgr.applyCurLineToLayer(layerMgr.getFocusedLayer());
         }
@@ -101,7 +105,10 @@ public class PSMDrawScenario extends XScenario {
 
         @Override
         public void renderScreenObjects(Graphics2D g2) {
-            
+            Point pt = PSMGestureMgr.getSingleton().getCurrentPt();
+            if (pt != null) {
+                PSMBrushMgr.getSingleton().drawPen(g2, pt);
+            }
         }
 
         @Override

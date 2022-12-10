@@ -2,6 +2,7 @@ package psm;
 
 import java.awt.Point;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 
 public class PSMGestureMgr {
     //singleton
@@ -19,6 +20,7 @@ public class PSMGestureMgr {
     private static final float TAP_TOLERANCE = 3.0f;
     
     //field
+    private ArrayList<Point> mPts = null;
     private boolean mIsTap = false;
     private Point mStartingPt = null;
     private Point2D.Float mStartingWorldPt = null;
@@ -39,6 +41,10 @@ public class PSMGestureMgr {
     
     public void setStartingPt(Point pt) {
         PSMCamera cam = PSMScreenMgr.getSingleton().getCamera();
+        this.mPts.clear();
+        if (pt != null) {
+            this.mPts.add(pt);
+        }
         this.mStartingPt = pt;
         this.mStartingWorldPt = PSMScreenMgr.getSingleton().
             screenPtToWorldPt(pt);
@@ -52,6 +58,7 @@ public class PSMGestureMgr {
     
     //constructor
     public PSMGestureMgr() {
+        this.mPts = new ArrayList<>();
         this.mStartingPt = new Point();
     }
     
@@ -59,6 +66,13 @@ public class PSMGestureMgr {
         if ((float)pt.distance(this.mStartingPt) > TAP_TOLERANCE) {
             this.mIsTap = false;
         }
+        this.mPts.add(pt);
+    }
+    public Point getCurrentPt() {
+        if (this.mPts.isEmpty()) {
+            return null;
+        }
+        return this.mPts.get(this.mPts.size() - 1);
     }
     public boolean isTap() {
         return this.mIsTap;

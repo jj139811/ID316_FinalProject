@@ -9,9 +9,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import psm.PSM;
 import psm.PSMCamera;
+import psm.PSMGestureMgr;
 import psm.PSMLayerMgr;
 import psm.PSMScene;
 import psm.PSMScreenMgr;
+import psm.cmd.PSMCmdToSetStartingScreenPt;
 import psm.gui.PSMGuiMgr;
 
 
@@ -60,6 +62,7 @@ public class PSMDefaultScenario extends XScenario {
         public void handleMousePress(MouseEvent e) {
             PSM psm = (PSM) this.mScenario.getApp();
             Point pt = e.getPoint();
+            PSMCmdToSetStartingScreenPt.execute(psm, pt);
             //isOnHandle?
             boolean isOnHandle = false;
             if(!isOnHandle) {
