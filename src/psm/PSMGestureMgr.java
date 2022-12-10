@@ -15,9 +15,11 @@ public class PSMGestureMgr {
     
     //constants
     public static final double MIN_START_ARM_LENGTH_FOR_SCALING = 100.0;
-    public static final Point PIVOT_PT =new Point(100, 100);
+    public static final Point PIVOT_PT = new Point(100, 100);
+    private static final float TAP_TOLERANCE = 3.0f;
     
     //field
+    private boolean mIsTap = false;
     private Point mStartingPt = null;
     private Point2D.Float mStartingWorldPt = null;
     private Point2D.Float mStartingCameraPos = null;
@@ -44,6 +46,8 @@ public class PSMGestureMgr {
             cam.getX(), cam.getY());
         this.mStartingCameraScale = new Point2D.Float(
             cam.getScaleX(), cam.getScaleY());
+        
+        this.mIsTap = true;
     }
     
     //constructor
@@ -51,5 +55,15 @@ public class PSMGestureMgr {
         this.mStartingPt = new Point();
     }
     
-    
+    public void updatePt(Point pt) {
+        if ((float)pt.distance(this.mStartingPt) > TAP_TOLERANCE) {
+            this.mIsTap = false;
+        }
+    }
+    public boolean isTap() {
+        return this.mIsTap;
+    }
+    public boolean isDrag() {
+        return !this.mIsTap;
+    }
 }
