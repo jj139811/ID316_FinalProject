@@ -90,18 +90,6 @@ public class PSMDefaultScenario extends XScenario {
             PSMGuiMgr guiMgr = PSMGuiMgr.getSingleton();
             int code = e.getKeyCode();
             switch (code) {
-                case KeyEvent.VK_W:
-                    cam.move(0, -50);
-                    break;
-                case KeyEvent.VK_A:
-                    cam.move(-50, 0);
-                    break;
-                case KeyEvent.VK_S:
-                    cam.move(0, 50);
-                    break;
-                case KeyEvent.VK_D:
-                    cam.move(50, 0);
-                    break;
                 case KeyEvent.VK_E:
                     XCmdToChangeScene.execute(PSM.getSingleton(),
                         PSMEraseScenario.EraseReadyScene.getSingleton(),
