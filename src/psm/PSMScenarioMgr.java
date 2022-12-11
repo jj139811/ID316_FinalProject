@@ -7,6 +7,7 @@ import psm.scenario.PSMDrawScenario;
 import psm.scenario.PSMEraseScenario;
 import psm.scenario.PSMLayerManageScenario;
 import psm.scenario.PSMNavigateScenario;
+import psm.scenario.PSMSimulateScenario;
 import psm.scenario.PSMTestScenario;
 
 public class PSMScenarioMgr extends XScenarioMgr{
@@ -21,11 +22,11 @@ public class PSMScenarioMgr extends XScenarioMgr{
         this.addScenario(PSMLayerManageScenario.createSingleton(this.mApp));
         this.addScenario(PSMNavigateScenario.createSingleton(this.mApp));
         this.addScenario(PSMEraseScenario.createSingleton(this.mApp));
+        this.addScenario(PSMSimulateScenario.createSingleton(this.mApp));
     }
 
     @Override
     protected void setInitCurScene() {
-        //this.setCurScene(PSMTestScenario.TestScene.getSingleton());
         //this.setCurScene(PSMTestScenario.TestScene.getSingleton());
         this.setCurScene(PSMDefaultScenario.ReadyScene.getSingleton());
     }

@@ -12,6 +12,9 @@ public class PSMLayerMgr {
     
     public static final int CHAR_WIDTH = 100;
     public static final int CHAR_HEIGHT = 150;
+    
+    public static final float FACTOR_INCREMENT = 0.1f;
+    
     //singleton
     private static PSMLayerMgr instance = null;
     public static PSMLayerMgr getSingleton() {

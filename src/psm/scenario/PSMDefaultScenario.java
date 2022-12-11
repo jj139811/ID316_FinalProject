@@ -64,8 +64,7 @@ public class PSMDefaultScenario extends XScenario {
             Point pt = e.getPoint();
             PSMCmdToSetStartingScreenPt.execute(psm, pt);
             //isOnHandle?
-            boolean isOnHandle = false;
-            if(!isOnHandle) {
+            if(!PSMGuiMgr.getSingleton().getHandle().isOn(pt)) {
                 XCmdToChangeScene.execute(psm, 
                 PSMDrawScenario.DrawScene.getSingleton(), this);
             } else {
@@ -98,13 +97,13 @@ public class PSMDefaultScenario extends XScenario {
                         PSMEraseScenario.EraseReadyScene.getSingleton(),
                         this);
                     break;
-                case KeyEvent.VK_SPACE:
-                    layerMgr.arrangeLayersToListFormat(cam);
-                    guiMgr.arrangeUisToListFormat(true);
-                    XCmdToChangeScene.execute(psm,
-                        PSMLayerManageScenario.PreLayerManageReadyScene.getSingleton(),
-                        this);
-                    break;
+//                case KeyEvent.VK_SPACE:
+//                    layerMgr.arrangeLayersToListFormat(cam);
+//                    guiMgr.arrangeUisToListFormat(true);
+//                    XCmdToChangeScene.execute(psm,
+//                        PSMLayerManageScenario.PreLayerManageReadyScene.getSingleton(),
+//                        this);
+//                    break;
                 case KeyEvent.VK_CONTROL:
                     XCmdToChangeScene.execute(psm,
                         PSMNavigateScenario.PanReadyScene.getSingleton(),
@@ -116,6 +115,11 @@ public class PSMDefaultScenario extends XScenario {
                         PSMNavigateScenario.ZoomReadyScene.getSingleton(),
                         this);
                     break;
+                case KeyEvent.VK_ENTER:
+                    XCmdToChangeScene.execute(psm,
+                        PSMSimulateScenario.SimulateScene.getSingleton(),
+                        this);
+                    //set camera focus(character)
             }
         }
 
