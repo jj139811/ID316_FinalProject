@@ -3,6 +3,7 @@ package psm.gui;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import psm.PSM;
+import psm.PSMLayer;
 import psm.PSMLayerMgr;
 
 public class PSMGuiMgr {

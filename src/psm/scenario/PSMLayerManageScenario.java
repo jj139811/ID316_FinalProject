@@ -104,20 +104,6 @@ public class PSMLayerManageScenario extends XScenario {
             PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
             PSMLayer focusedLayer = layerMgr.getFocusedLayer();
             int code = e.getKeyCode();
-            switch (code) {
-                case KeyEvent.VK_A:
-                    layerMgr.setFocusedIndex(layerMgr.getFocusedIndex() - 1);
-                    break;
-                case KeyEvent.VK_D:
-                    layerMgr.setFocusedIndex(layerMgr.getFocusedIndex() + 1);
-                    break;
-                case KeyEvent.VK_W:
-                    focusedLayer.setFactor(focusedLayer.getFactor() + 0.1f);
-                    break;
-                case KeyEvent.VK_S:
-                    focusedLayer.setFactor(focusedLayer.getFactor() - 0.1f);
-                    break;
-            }
             layerMgr.arrangeLayersToListFormat(cam);
         }
 
@@ -191,7 +177,6 @@ public class PSMLayerManageScenario extends XScenario {
             PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
             PSMLayer focusedLayer = layerMgr.getFocusedLayer();
             PSMGuiMgr guiMgr = PSMGuiMgr.getSingleton();
-            //is on new layer area?
             if (!PSMGuiMgr.getSingleton().getNewLayer().isOn(pt)) {
                 if (!PSMGuiMgr.getSingleton().getCharLayer().isOn(pt)) {
                     if (!PSMGuiMgr.getSingleton().getHighlightedLayer().isOn(pt)) {
@@ -311,7 +296,11 @@ public class PSMLayerManageScenario extends XScenario {
 
         @Override
         public void handleMouseDrag(MouseEvent e) {
-            //update highlighted layer pos
+            //update highlighted layer 
+            Point pt = e.getPoint();
+            PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
+            PSMGuiMgr guiMgr = PSMGuiMgr.getSingleton();
+            guiMgr.
             
         }
 
@@ -393,12 +382,14 @@ public class PSMLayerManageScenario extends XScenario {
             Point pt = e.getPoint();
             PSMCamera cam = PSMScreenMgr.getSingleton().getCamera();
             PSMGuiMgr guiMgr = PSMGuiMgr.getSingleton();
+            PSMLayer charLayer = layerMgr.getCharLayer();
 
             if (!PSMGuiMgr.getSingleton().getCharLayer().isOn(pt)) {
                 XCmdToChangeScene.execute(psm, 
                     PSMLayerManageScenario.LayerManageReadyScene.getSingleton(), null);
             } else {
                 //set focused layer(char layer)
+                PSMLayerMgr.getSingleton().setFocusedLayer(charLayer);
                 System.out.println("character layer focused");
                 //다시 view로 돌려주기
                 layerMgr.arrangeLayersToViewFormat(cam);
