@@ -36,6 +36,19 @@ public class PSMLayerMgr {
         this.mFocusedIndex = this.mLayers.indexOf(layer);
     }
     
+    public int getNumLayers() {
+        return this.mLayers.size();
+    }
+    public PSMLayer getLayerAt(int index) {
+        if (index < 0) {
+            return this.mCharLayer;
+        }
+        if (index > this.mLayers.size()) {
+            return null;
+        }
+        return this.mLayers.get(index);
+    }
+    
     private int mFocusedIndex;
     public int getFocusedIndex() {
         return this.mFocusedIndex;
@@ -141,5 +154,24 @@ public class PSMLayerMgr {
             layer.render(g);
         }
         this.mCharLayer.render(g);
+    }
+    
+    public boolean sortLayer() {
+        boolean isChanged = false;
+        for (int i = 0; i < this.mLayers.size() - 1; i++) {
+            for (int j = i + 1; j < this.mLayers.size(); j++) {
+                PSMLayer li = this.mLayers.get(i);
+                PSMLayer lj = this.mLayers.get(j);
+                if (li.getFactor() > lj.getFactor()) {
+                    this.mLayers.set(i, lj);
+                    this.mLayers.set(j, li);
+                    isChanged = true;
+                }
+            }
+        }
+        if (isChanged) {
+            this.setFocusedLayer(this.mFocusedLayer);
+        }
+        return isChanged;
     }
 }

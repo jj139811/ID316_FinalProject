@@ -221,15 +221,24 @@ public class PSMLayerManageScenario extends XScenario {
             int code = e.getKeyCode();
             PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
             PSMLayer focusedLayer = layerMgr.getFocusedLayer();
+            PSMCamera cam = PSMScreenMgr.getSingleton().getCamera();
             float increment = PSMLayerMgr.FACTOR_INCREMENT;
             switch (code) {
                 case KeyEvent.VK_UP: 
-                    focusedLayer.setFactor(focusedLayer.getFactor() + increment);
+                    focusedLayer.setFactor(focusedLayer.getFactor() +
+                        increment);
                     System.out.println("factor increased by " + increment);
+                    if (layerMgr.sortLayer()) {
+                        layerMgr.arrangeLayersToListFormat(cam);
+                    }
                     break;
                 case KeyEvent.VK_DOWN: 
-                    focusedLayer.setFactor(focusedLayer.getFactor() - increment);
+                    focusedLayer.setFactor(focusedLayer.getFactor() -
+                        increment);
                     System.out.println("factor decreased by " + increment);
+                    if (layerMgr.sortLayer()) {
+                        layerMgr.arrangeLayersToListFormat(cam);
+                    }
                     break;
             }
         }
@@ -642,7 +651,18 @@ public class PSMLayerManageScenario extends XScenario {
                 if (focusedIndex < 0) {
                     focusedIndex = 0;
                 }
-                PSMBgLayer newLayer = new PSMBgLayer(0.0f); // TODO: set factor
+                float minFactor = PSMLayer.MIN_FACTOR;
+                float maxFactor = PSMLayer.MAX_FACTOR;
+                if (focusedIndex > 0) {
+                    minFactor = layerMgr.getLayerAt(focusedIndex - 1).
+                        getFactor();
+                }
+                if (focusedIndex < layerMgr.getNumLayers()) {
+                    maxFactor = layerMgr.getLayerAt(focusedIndex).
+                        getFactor();
+                }
+                float factor = (minFactor + maxFactor) / 2;
+                PSMBgLayer newLayer = new PSMBgLayer(factor);
                 layerMgr.addLayerToIndex(newLayer, focusedIndex);
                 layerMgr.setFocusedLayer(newLayer);
                 

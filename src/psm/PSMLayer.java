@@ -1,5 +1,6 @@
 package psm;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Point2D;
@@ -7,6 +8,8 @@ import java.awt.image.BufferedImage;
 import psm.animation.PSMAnimatableObject;
 
 public abstract class PSMLayer extends PSMAnimatableObject{
+    // Debug
+    private static final boolean SHOW_FACTOR = true;
     //constant
     public static final float MAX_FACTOR = 1.0f;
     public static final float MIN_FACTOR = -2.0f;
@@ -36,7 +39,7 @@ public abstract class PSMLayer extends PSMAnimatableObject{
         } else if (value < MIN_FACTOR) {
             value = MIN_FACTOR;
         }
-        this.mFactor = value;
+        this.mFactor = (float)((int)(10 *value)) / 10;
     }
     
     //constructor
@@ -86,5 +89,9 @@ public abstract class PSMLayer extends PSMAnimatableObject{
             return;
         }
         g.drawImage(this.mContent, x, y, width, height, null);
+        if (SHOW_FACTOR) {
+            g.setColor(Color.red);
+            g.drawString(String.valueOf(this.mFactor), x, y);
+        }
     }
 }
