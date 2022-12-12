@@ -68,7 +68,6 @@ public class PSMNavigateScenario extends XScenario {
             PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
             Point pt = e.getPoint();
             
-            PSMCmdToSetStartingScreenPt.execute(psm, e.getPoint());
             XCmdToChangeScene.execute(psm,
                 PSMNavigateScenario.PanScene.getSingleton(),
                 this.mReturnScene);
@@ -168,7 +167,6 @@ public class PSMNavigateScenario extends XScenario {
                 PSMNavigateScenario.PanReadyScene.getSingleton(),
                 this.mReturnScene);
             //set starting point method
-            PSMCmdToSetStartingScreenPt.execute(psm, null);
         }
 
         @Override
@@ -240,7 +238,6 @@ public class PSMNavigateScenario extends XScenario {
             PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
             Point pt = e.getPoint();
             
-            PSMCmdToSetStartingScreenPt.execute(psm, e.getPoint());
             XCmdToChangeScene.execute(psm,
                 PSMNavigateScenario.ZoomScene.getSingleton(),
                 this.mReturnScene);
@@ -336,8 +333,6 @@ public class PSMNavigateScenario extends XScenario {
             XCmdToChangeScene.execute(psm,
                 PSMNavigateScenario.ZoomReadyScene.getSingleton(),
                 this.mReturnScene);
-            //set starting point method
-            psm.getGestureMgr().setStartingPt(null);
         }
 
         @Override

@@ -15,7 +15,9 @@ import psm.PSMLayer;
 import psm.PSMLayerMgr;
 import psm.PSMScene;
 import psm.PSMScreenMgr;
+import psm.gui.PSMGuiHandle;
 import psm.gui.PSMGuiMgr;
+import psm.gui.PSMGuiNewLayer;
 
 
 public class PSMLayerManageScenario extends XScenario {
@@ -39,12 +41,20 @@ public class PSMLayerManageScenario extends XScenario {
 
     @Override
     protected void addScenes() {
-        this.addScene(PSMLayerManageScenario.PreLayerManageReadyScene.createSingleton(this));
-        this.addScene(PSMLayerManageScenario.LayerManageReadyScene.createSingleton(this));
-        this.addScene(PSMLayerManageScenario.SlidingScene.createSingleton(this));
-        this.addScene(PSMLayerManageScenario.CharLayerHoldingScene.createSingleton(this));
-        this.addScene(PSMLayerManageScenario.HighlightedLayerHoldingScene.createSingleton(this));
-        this.addScene(PSMLayerManageScenario.NewLayerHoldingScene.createSingleton(this));
+        this.addScene(PSMLayerManageScenario.
+            PreLayerManageReadyScene.createSingleton(this));
+        this.addScene(PSMLayerManageScenario.
+            LayerManageReadyScene.createSingleton(this));
+        this.addScene(PSMLayerManageScenario.
+            OnHighlightedLayerScene.createSingleton(this));
+        this.addScene(PSMLayerManageScenario.
+            SlidingScene.createSingleton(this));
+        this.addScene(PSMLayerManageScenario.
+            CharLayerHoldingScene.createSingleton(this));
+        this.addScene(PSMLayerManageScenario.
+            HighlightedLayerHoldingScene.createSingleton(this));
+        this.addScene(PSMLayerManageScenario.
+            NewLayerHoldingScene.createSingleton(this));
         
     }
 
@@ -72,30 +82,30 @@ public class PSMLayerManageScenario extends XScenario {
 
         @Override
         public void handleMouseDrag(MouseEvent e) {
-            //dragged enough?
-            //update HandlePos
+            PSMGuiHandle handle = PSMGuiMgr.getSingleton().getHandle();
+            handle.followCursor(e.getPoint());
+        }
+
+        @Override
+        public void handleMouseRelease(MouseEvent e) {
             PSM psm = (PSM) this.mScenario.getApp();
             Point pt = e.getPoint();
             PSMCamera cam = PSMScreenMgr.getSingleton().getCamera();
             PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
             PSMGuiMgr guiMgr = PSMGuiMgr.getSingleton();
-            boolean isDraggedEnough = true;
+            boolean isDraggedEnough = (
+                pt.x < PSM.CANVAS_WIDTH / 2) && (
+                pt.y > PSM.CANVAS_HEIGHT / 2);
             if (!isDraggedEnough) {
-                
+                guiMgr.arrangeUisToViewFormat(true);
+                XCmdToChangeScene.execute(psm, 
+                PSMDefaultScenario.ReadyScene.getSingleton(), null);
             } else {
                 layerMgr.arrangeLayersToListFormat(cam);
                 guiMgr.arrangeUisToListFormat(true);
                 XCmdToChangeScene.execute(psm, 
                 PSMLayerManageScenario.LayerManageReadyScene.getSingleton(), null);
             }
-        }
-
-        @Override
-        public void handleMouseRelease(MouseEvent e) {
-            PSM psm = (PSM) this.mScenario.getApp();
-            //reset handle pos
-            XCmdToChangeScene.execute(psm, 
-                PSMDefaultScenario.ReadyScene.getSingleton(), null);
         }
 
         @Override
@@ -175,39 +185,23 @@ public class PSMLayerManageScenario extends XScenario {
             Point pt = e.getPoint();
             PSMCamera cam = PSMScreenMgr.getSingleton().getCamera();
             PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
-            PSMLayer focusedLayer = layerMgr.getFocusedLayer();
             PSMGuiMgr guiMgr = PSMGuiMgr.getSingleton();
-            if (!PSMGuiMgr.getSingleton().getNewLayer().isOn(pt)) {
-                if (!PSMGuiMgr.getSingleton().getCharLayer().isOn(pt)) {
-                    if (!PSMGuiMgr.getSingleton().getHighlightedLayer().isOn(pt)) {
-                        XCmdToChangeScene.execute(psm, 
-                            PSMLayerManageScenario.SlidingScene.getSingleton(), this);
-                    } else {
-                        if (!PSMGestureMgr.getSingleton().isTap()) {
-                            if (!PSMGestureMgr.getSingleton().isDrag()) {
-                                XCmdToChangeScene.execute(psm, 
-                                    PSMLayerManageScenario.HighlightedLayerHoldingScene.getSingleton(), this);
-                            } else {
-                                XCmdToChangeScene.execute(psm, 
-                                    PSMLayerManageScenario.SlidingScene.getSingleton(), this);
-                            }
-                        } else {
-                            //setFocusedLayer(Highlighted layer)
-                            layerMgr.setFocusedIndex(layerMgr.getFocusedIndex());
-                            //다시 focused view로
-                            layerMgr.arrangeLayersToViewFormat(cam);
-                            guiMgr.arrangeUisToViewFormat(true);
-                            XCmdToChangeScene.execute(psm, 
-                                PSMDefaultScenario.ReadyScene.getSingleton(), this);
-                        }
-                    }
-                } else {
-                    XCmdToChangeScene.execute(psm, 
-                        PSMLayerManageScenario.CharLayerHoldingScene.getSingleton(), null);
-                }
+            if (PSMGuiMgr.getSingleton().getNewLayer().isOn(pt)) {
+                XCmdToChangeScene.execute(psm, 
+                    PSMLayerManageScenario.NewLayerHoldingScene.getSingleton(),
+                    this);
+            } else if (PSMGuiMgr.getSingleton().getCharLayer().isOn(pt)) {
+                XCmdToChangeScene.execute(psm, 
+                    PSMLayerManageScenario.CharLayerHoldingScene.getSingleton(),
+                    null);
+            } else if (PSMGuiMgr.getSingleton().
+                getHighlightedLayer().isOn(pt)) {
+                
+                XCmdToChangeScene.execute(psm, PSMLayerManageScenario.
+                    OnHighlightedLayerScene.getSingleton(), this);
             } else {
                 XCmdToChangeScene.execute(psm, 
-                    PSMLayerManageScenario.NewLayerHoldingScene.getSingleton(), this);
+                    PSMLayerManageScenario.SlidingScene.getSingleton(), this);
             }
             
         }
@@ -226,7 +220,7 @@ public class PSMLayerManageScenario extends XScenario {
         public void handleKeyDown(KeyEvent e) {
             int code = e.getKeyCode();
             PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
-            PSMBgLayer focusedLayer = (PSMBgLayer)layerMgr.getFocusedLayer();
+            PSMLayer focusedLayer = layerMgr.getFocusedLayer();
             float increment = PSMLayerMgr.FACTOR_INCREMENT;
             switch (code) {
                 case KeyEvent.VK_UP: 
@@ -272,6 +266,84 @@ public class PSMLayerManageScenario extends XScenario {
         }
     }
     
+    public static class OnHighlightedLayerScene extends PSMScene {
+        private static OnHighlightedLayerScene mSingleton = null;
+        public static OnHighlightedLayerScene createSingleton(XScenario scenario) {
+            assert (OnHighlightedLayerScene.mSingleton == null); //false: stop
+            OnHighlightedLayerScene.mSingleton = new OnHighlightedLayerScene(scenario);
+            return OnHighlightedLayerScene.mSingleton;
+        }
+    
+        public static OnHighlightedLayerScene getSingleton() {
+            assert (OnHighlightedLayerScene.mSingleton != null);
+            return OnHighlightedLayerScene.mSingleton;
+        }
+        
+        private OnHighlightedLayerScene(XScenario scenario) {
+            super(scenario);
+        }
+
+        @Override
+        public void handleMousePress(MouseEvent e) {
+
+        }
+
+        @Override
+        public void handleMouseDrag(MouseEvent e) {
+            PSM psm = (PSM) this.mScenario.getApp();
+            XCmdToChangeScene.execute(psm, 
+                PSMLayerManageScenario.SlidingScene.getSingleton(), this);
+        }
+
+        @Override
+        public void handleMouseRelease(MouseEvent e) {
+            PSM psm = (PSM) this.mScenario.getApp();
+            Point pt = e.getPoint();
+            PSMCamera cam = PSMScreenMgr.getSingleton().getCamera();
+            PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
+            PSMGuiMgr guiMgr = PSMGuiMgr.getSingleton();
+            layerMgr.arrangeLayersToViewFormat(cam);
+            guiMgr.arrangeUisToViewFormat(true);
+            XCmdToChangeScene.execute(psm,
+                PSMDefaultScenario.ReadyScene.getSingleton(), this);
+        }
+
+        @Override
+        public void handleKeyDown(KeyEvent e) {
+
+        }
+
+        @Override
+        public void handleKeyUp(KeyEvent e) {
+
+        }
+
+        @Override
+        public void updateSupportObjects() {
+            
+        }
+
+        @Override
+        public void renderWorldObjects(Graphics2D g2) {
+            
+        }
+
+        @Override
+        public void renderScreenObjects(Graphics2D g2) {
+            
+        }
+
+        @Override
+        public void getReady() {
+            
+        }
+
+        @Override
+        public void wrapUp() {
+            
+        }
+    }
+    
     public static class SlidingScene extends PSMScene {
         private static SlidingScene mSingleton = null;
         public static SlidingScene createSingleton(XScenario scenario) {
@@ -296,19 +368,29 @@ public class PSMLayerManageScenario extends XScenario {
 
         @Override
         public void handleMouseDrag(MouseEvent e) {
-            //update highlighted layer 
-            Point pt = e.getPoint();
-            PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
-            PSMGuiMgr guiMgr = PSMGuiMgr.getSingleton();
-            guiMgr.
             
         }
 
         @Override
         public void handleMouseRelease(MouseEvent e) {
             PSM psm = (PSM) this.mScenario.getApp();
+            PSMGestureMgr gestureMgr = PSMGestureMgr.getSingleton();
+            PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
+            PSMCamera cam = PSMScreenMgr.getSingleton().getCamera();
+            Point startingPt = gestureMgr.getStartingPt();
+            Point currentPt = e.getPoint();
+            int dx = currentPt.x - startingPt.x;
+            if (dx < PSMLayerMgr.PANEL_WIDTH / 2) {
+                layerMgr.setFocusedIndex(layerMgr.getFocusedIndex() + 1);
+                layerMgr.arrangeLayersToListFormat(cam);
+            }
+            if (dx > - PSMLayerMgr.PANEL_WIDTH / 2) {
+                layerMgr.setFocusedIndex(layerMgr.getFocusedIndex() - 1);
+                layerMgr.arrangeLayersToListFormat(cam);
+            }
             XCmdToChangeScene.execute(psm, 
-                PSMLayerManageScenario.LayerManageReadyScene.getSingleton(), null);
+                PSMLayerManageScenario.LayerManageReadyScene.getSingleton(),
+                null);
         }
 
         @Override
@@ -386,7 +468,8 @@ public class PSMLayerManageScenario extends XScenario {
 
             if (!PSMGuiMgr.getSingleton().getCharLayer().isOn(pt)) {
                 XCmdToChangeScene.execute(psm, 
-                    PSMLayerManageScenario.LayerManageReadyScene.getSingleton(), null);
+                    PSMLayerManageScenario.LayerManageReadyScene.getSingleton(),
+                    null);
             } else {
                 //set focused layer(char layer)
                 PSMLayerMgr.getSingleton().setFocusedLayer(charLayer);
@@ -542,28 +625,34 @@ public class PSMLayerManageScenario extends XScenario {
         @Override
         public void handleMouseDrag(MouseEvent e) {
             //update new layer position
+            PSMGuiNewLayer newLayer = PSMGuiMgr.getSingleton().getNewLayer();
+            newLayer.followCursor(e.getPoint());
         }
 
         @Override
         public void handleMouseRelease(MouseEvent e) {
+            Point pt = e.getPoint();
             PSM psm = (PSM) this.mScenario.getApp();
             PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
             PSMCamera cam = PSMScreenMgr.getSingleton().getCamera();
             PSMGuiMgr guiMgr = PSMGuiMgr.getSingleton();
-            //check new layer position 
-            //추가 영역 안일 시 add new layer 후 pre layer manage scene으로 
-            //아닐 시 reset new layer pos 후 pre layer manage scene으로 
-            if (!(PSMGuiMgr.getSingleton().getNewLayer().getY() > 600 && true)) {
-                //add new layer
-                System.out.println("new layer added");
-                XCmdToChangeScene.execute(psm, 
-                    PSMLayerManageScenario.LayerManageReadyScene.getSingleton(), null);
+            if (guiMgr.getHighlightedLayer().isOn(pt)){
+                // add new layer
+                int focusedIndex = layerMgr.getFocusedIndex();
+                if (focusedIndex < 0) {
+                    focusedIndex = 0;
+                }
+                PSMBgLayer newLayer = new PSMBgLayer(0.0f); // TODO: set factor
+                layerMgr.addLayerToIndex(newLayer, focusedIndex);
+                layerMgr.setFocusedLayer(newLayer);
+                
+                layerMgr.arrangeLayersToListFormat(cam);
             } else {
-                //reset new layer pos
-                System.out.println("layer pos reset");
-                XCmdToChangeScene.execute(psm, 
-                    PSMLayerManageScenario.LayerManageReadyScene.getSingleton(), null);
+                // do nothing
             }
+            guiMgr.arrangeUisToListFormat(false);
+            XCmdToChangeScene.execute(psm, 
+                PSMLayerManageScenario.LayerManageReadyScene.getSingleton(), null);
         }
 
         @Override

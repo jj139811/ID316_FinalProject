@@ -68,7 +68,6 @@ public class PSMDrawScenario extends XScenario {
             PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
             Point pt = e.getPoint();
             PSMBrushMgr brushMgr = PSMBrushMgr.getSingleton();
-            PSMCmdToUpdatePt.execute(psm, pt);
             brushMgr.addPt(pt);
             brushMgr.applyCurLineToLayer(layerMgr.getFocusedLayer());
         }

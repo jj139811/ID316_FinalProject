@@ -16,7 +16,6 @@ public class PSMCmdToUpdatePt extends XLoggableCmd{
         this.mScreenPt = pt;
     }
     
-    //public static boolean execute(XApp app ,Point pt) {
     public static boolean execute(XApp app, Point pt) {
         PSMCmdToUpdatePt cmd = new PSMCmdToUpdatePt(app, pt);
         return cmd.execute();

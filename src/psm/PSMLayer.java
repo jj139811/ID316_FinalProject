@@ -1,6 +1,7 @@
 package psm;
 
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import psm.animation.PSMAnimatableObject;
@@ -57,7 +58,8 @@ public abstract class PSMLayer extends PSMAnimatableObject{
                 (int)((width - this.mImgWidth) / 2),
                 (int)((height - this.mImgHeight) / 2), null);
         }
-        
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
+            RenderingHints.VALUE_ANTIALIAS_ON);
         this.mContent = newImage;
         this.mGraphics = g;
         this.mImgWidth = width;

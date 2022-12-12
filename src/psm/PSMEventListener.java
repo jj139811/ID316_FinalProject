@@ -5,6 +5,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import psm.cmd.PSMCmdToSetStartingScreenPt;
+import psm.cmd.PSMCmdToUpdatePt;
 
 public class PSMEventListener implements MouseListener, MouseMotionListener, 
     KeyListener{
@@ -27,6 +29,7 @@ public class PSMEventListener implements MouseListener, MouseMotionListener,
     public void mousePressed(MouseEvent e) {
         PSMScene curScene = (PSMScene)PSM.getSingleton().
             getScenarioMgr().getCurScene();
+        PSMCmdToSetStartingScreenPt.execute(PSM.getSingleton(), e.getPoint());
         curScene.handleMousePress(e);
     }
 
@@ -35,6 +38,7 @@ public class PSMEventListener implements MouseListener, MouseMotionListener,
         PSMScene curScene = (PSMScene)PSM.getSingleton().
             getScenarioMgr().getCurScene();
         curScene.handleMouseRelease(e);
+        PSMCmdToSetStartingScreenPt.execute(PSM.getSingleton(), null);
     }
 
     @Override
@@ -51,6 +55,7 @@ public class PSMEventListener implements MouseListener, MouseMotionListener,
     public void mouseDragged(MouseEvent e) {
         PSMScene curScene = (PSMScene)PSM.getSingleton().
             getScenarioMgr().getCurScene();
+        PSMCmdToUpdatePt.execute(PSM.getSingleton(), e.getPoint());
         curScene.handleMouseDrag(e);
     }
 

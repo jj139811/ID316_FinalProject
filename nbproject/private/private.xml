@@ -3,13 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/PSMCanvas2D.java</file>
+            <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/scenario/PSMEmptyScenario.java</file>
             <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/scenario/PSMLayerManageScenario.java</file>
-            <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/scenario/PSMDefaultScenario.java</file>
-            <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/gui/PSMGuiMgr.java</file>
-            <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/PSMLayerMgr.java</file>
-            <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/gui/PSMGui.java</file>
-            <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/PSM.java</file>
+            <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/cmd/PSMCmdToUpdatePt.java</file>
+            <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/PSMGestureMgr.java</file>
+            <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/PSMEventListener.java</file>
         </group>
     </open-files>
 </project-private>

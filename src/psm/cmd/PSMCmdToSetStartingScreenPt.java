@@ -3,7 +3,6 @@ package psm.cmd;
 import X.XApp;
 import X.XLoggableCmd;
 import java.awt.Point;
-import java.awt.geom.Point2D;
 import psm.PSM;
 import psm.PSMGestureMgr;
 

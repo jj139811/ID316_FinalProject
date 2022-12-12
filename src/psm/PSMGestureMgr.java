@@ -38,7 +38,6 @@ public class PSMGestureMgr {
     public Point2D.Float getStartingCameraScale() {
         return this.mStartingCameraScale;
     }
-    
     public void setStartingPt(Point pt) {
         PSMCamera cam = PSMScreenMgr.getSingleton().getCamera();
         this.mPts.clear();
@@ -61,7 +60,6 @@ public class PSMGestureMgr {
         this.mPts = new ArrayList<>();
         this.mStartingPt = new Point();
     }
-    
     public void updatePt(Point pt) {
         if ((float)pt.distance(this.mStartingPt) > TAP_TOLERANCE) {
             this.mIsTap = false;
