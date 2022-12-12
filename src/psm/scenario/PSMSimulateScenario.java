@@ -93,10 +93,10 @@ public class PSMSimulateScenario extends XScenario {
             PSMGuiMgr guiMgr = PSMGuiMgr.getSingleton();
             int code = e.getKeyCode();
             switch (code) {
-                case KeyEvent.VK_ENTER:
+                case KeyEvent.VK_SPACE:
                     //setCameraFocus(null)
                     XCmdToChangeScene.execute(psm,
-                        PSMDefaultScenario.ReadyScene.getSingleton(),
+                        this.mReturnScene,
                         null);
                     break;
             }
@@ -177,10 +177,10 @@ public class PSMSimulateScenario extends XScenario {
             PSMGuiMgr guiMgr = PSMGuiMgr.getSingleton();
             int code = e.getKeyCode();
             switch (code) {
-                case KeyEvent.VK_ENTER:
+                case KeyEvent.VK_SPACE:
                     //setCameraFocus(null)
                     XCmdToChangeScene.execute(psm,
-                        PSMDefaultScenario.ReadyScene.getSingleton(),
+                        this.mReturnScene,
                         null);
                     break;
             }

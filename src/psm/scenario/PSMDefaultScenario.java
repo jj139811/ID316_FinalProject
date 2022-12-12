@@ -94,13 +94,11 @@ public class PSMDefaultScenario extends XScenario {
                         PSMEraseScenario.EraseReadyScene.getSingleton(),
                         this);
                     break;
-//                case KeyEvent.VK_SPACE:
-//                    layerMgr.arrangeLayersToListFormat(cam);
-//                    guiMgr.arrangeUisToListFormat(true);
-//                    XCmdToChangeScene.execute(psm,
-//                        PSMLayerManageScenario.PreLayerManageReadyScene.getSingleton(),
-//                        this);
-//                    break;
+                case KeyEvent.VK_SPACE:
+                    XCmdToChangeScene.execute(psm,
+                        PSMSimulateScenario.SimulateScene.getSingleton(),
+                        this);
+                    break;
                 case KeyEvent.VK_CONTROL:
                     XCmdToChangeScene.execute(psm,
                         PSMNavigateScenario.PanReadyScene.getSingleton(),
