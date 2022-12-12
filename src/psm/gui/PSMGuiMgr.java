@@ -87,9 +87,13 @@ public class PSMGuiMgr {
         arrangeUisToViewFormat(false);
     }
     public final void arrangeUisToViewFormat(boolean enableAnimation) {
-        this.mTrashcan.setPosition(PSM.CANVAS_WIDTH - HANDLE_WIDTH, 0,
+        this.mTrashcan.setPosition(
+            (PSM.CANVAS_WIDTH - PSMLayerMgr.PANEL_WIDTH) / 2,
+            PSM.CANVAS_HEIGHT,
             enableAnimation);
-        this.mTrashcan.setSize(HANDLE_WIDTH, HANDLE_HEIGHT,
+        this.mTrashcan.setSize(
+            PSMLayerMgr.PANEL_WIDTH,
+            PSMLayerMgr.PANEL_HEIGHT,
             enableAnimation);
         this.mTrashcan.setVisible(true);
         
@@ -119,9 +123,13 @@ public class PSMGuiMgr {
         this.mHighlightedLayer.setVisible(false);
     }
     public void arrangeUisToListFormat(boolean enableAnimation) {
-        this.mTrashcan.setPosition(-HANDLE_WIDTH, PSM.CANVAS_HEIGHT,
+        this.mTrashcan.setPosition(
+            (PSM.CANVAS_WIDTH - PSMLayerMgr.PANEL_WIDTH) / 2,
+            PSM.CANVAS_HEIGHT - PSMLayerMgr.PANEL_HEIGHT / 3,
             enableAnimation);
-        this.mTrashcan.setSize(HANDLE_WIDTH, HANDLE_HEIGHT,
+        this.mTrashcan.setSize(
+            PSMLayerMgr.PANEL_WIDTH,
+            PSMLayerMgr.PANEL_HEIGHT,
             enableAnimation);
         this.mTrashcan.setVisible(true);
         
