@@ -1,8 +1,14 @@
 package psm;
 
 import java.awt.Graphics2D;
+import java.awt.Point;
+import psm.animation.PSMAnimatable;
+import psm.scenario.PSMSimulateScenario;
 
-public class PSMCamera {
+public class PSMCamera extends PSMAnimatable{
+    //constant
+    private static final float MIN_DISTANCE = 0.2f;
+    private static final float FOLLOW_SPEED = 0.2f;
     //field
     private Graphics2D mGraphics;
     public Graphics2D getGraphics() {
@@ -52,6 +58,7 @@ public class PSMCamera {
     
     //constructor
     public PSMCamera() {
+        super();
         this.x = 0;
         this.y = 0;
         this.scaleX = 1.0f;
@@ -72,5 +79,29 @@ public class PSMCamera {
     }
     public void move(float dx, float dy) {
         this.setPosition(this.x + dx, this.y + dy);
+    }
+
+    @Override
+    public void update(long t) {
+        PSMScene curScene = (PSMScene)PSM.getSingleton().getScenarioMgr().
+            getCurScene();
+        if (curScene == PSMSimulateScenario.CharacterMoveScene.getSingleton() ||
+            curScene == PSMSimulateScenario.SimulateScene.getSingleton()) {
+            PSMCharLayer charLayer = PSMLayerMgr.getSingleton().getCharLayer();
+            float charX = charLayer.getX();
+            float charY = charLayer.getY();
+            float x = this.getX();
+            float y = this.getY();
+            
+            float dx = charX - x;
+            float dy = charY - y;
+            
+            float distance = (float)Math.sqrt(dx * dx + dy * dy);
+            if (distance < MIN_DISTANCE) {
+                this.setPosition(charX, charY);
+            } else {
+                this.move(dx * FOLLOW_SPEED, dy * FOLLOW_SPEED);
+            }
+        } 
     }
 }

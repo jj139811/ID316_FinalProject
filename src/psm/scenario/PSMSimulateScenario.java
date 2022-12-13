@@ -3,12 +3,17 @@ package psm.scenario;
 import X.XApp;
 import X.XCmdToChangeScene;
 import X.XScenario;
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
 import psm.PSM;
 import psm.PSMCamera;
+import psm.PSMGestureMgr;
 import psm.PSMLayerMgr;
 import psm.PSMScene;
 import psm.PSMScreenMgr;
@@ -61,13 +66,9 @@ public class PSMSimulateScenario extends XScenario {
         public void handleMousePress(MouseEvent e) {
             PSM psm = (PSM) this.mScenario.getApp();
             Point pt = e.getPoint();
-            if (!PSMLayerMgr.getSingleton().getCharLayer().isOnBoundingBox(pt)) {
-                
-            } else {
-                XCmdToChangeScene.execute(psm,
+            XCmdToChangeScene.execute(psm,
                     PSMSimulateScenario.CharacterMoveScene.getSingleton(), 
                     this.mReturnScene);
-            }
         }
 
         @Override
@@ -95,6 +96,8 @@ public class PSMSimulateScenario extends XScenario {
             switch (code) {
                 case KeyEvent.VK_SPACE:
                     //setCameraFocus(null)
+                    layerMgr.getCharLayer().syncPosition(cam, true);
+                    layerMgr.arrangeLayersToViewFormat(cam);
                     XCmdToChangeScene.execute(psm,
                         this.mReturnScene,
                         null);
@@ -153,8 +156,7 @@ public class PSMSimulateScenario extends XScenario {
 
         @Override
         public void handleMouseDrag(MouseEvent e) {
-            //Move Character
-            //update camera position
+            
         }
 
         @Override
@@ -178,7 +180,8 @@ public class PSMSimulateScenario extends XScenario {
             int code = e.getKeyCode();
             switch (code) {
                 case KeyEvent.VK_SPACE:
-                    //setCameraFocus(null)
+                    layerMgr.getCharLayer().syncPosition(cam, true);
+                    layerMgr.arrangeLayersToViewFormat(cam);
                     XCmdToChangeScene.execute(psm,
                         this.mReturnScene,
                         null);
@@ -199,7 +202,18 @@ public class PSMSimulateScenario extends XScenario {
 
         @Override
         public void renderScreenObjects(Graphics2D g2) {
-            
+            PSMGestureMgr gestureMgr = PSMGestureMgr.getSingleton();
+            Point startingPt = gestureMgr.getStartingPt();
+            Point currentPt = gestureMgr.getCurrentPt();
+            assert (startingPt != null && currentPt != null);
+            Ellipse2D pivot = new Ellipse2D.Float(
+                startingPt.x - 25, startingPt.y - 25, 50, 50);
+            Line2D handle = new Line2D.Float(
+                startingPt.x, startingPt.y, currentPt.x, currentPt.y);
+            g2.setColor(new Color(0.0f, 0.0f, 0.0f, 0.2f));
+            g2.setStroke(new BasicStroke(2.0f));
+            g2.fill(pivot);
+            g2.draw(handle);
         }
 
         @Override

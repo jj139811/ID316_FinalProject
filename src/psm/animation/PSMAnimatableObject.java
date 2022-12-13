@@ -107,7 +107,7 @@ public abstract class PSMAnimatableObject extends PSMAnimatable{
         this.mIsMoving = true;
     }
     @Override
-    public final void update(long t) {
+    public void update(long t) {
         if(!this.mIsMoving){
             return;
         }
