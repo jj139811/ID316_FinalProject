@@ -2,6 +2,7 @@ package psm;
 
 import X.XApp;
 import X.XScenarioMgr;
+import psm.scenario.PSMColorScenario;
 import psm.scenario.PSMDefaultScenario;
 import psm.scenario.PSMDrawScenario;
 import psm.scenario.PSMEraseScenario;
@@ -23,6 +24,7 @@ public class PSMScenarioMgr extends XScenarioMgr{
         this.addScenario(PSMNavigateScenario.createSingleton(this.mApp));
         this.addScenario(PSMEraseScenario.createSingleton(this.mApp));
         this.addScenario(PSMSimulateScenario.createSingleton(this.mApp));
+        this.addScenario(PSMColorScenario.createSingleton(this.mApp));
     }
 
     @Override

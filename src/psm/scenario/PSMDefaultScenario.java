@@ -95,6 +95,7 @@ public class PSMDefaultScenario extends XScenario {
                         this);
                     break;
                 case KeyEvent.VK_SPACE:
+                    cam.setScale(1.0f, 1.0f);
                     XCmdToChangeScene.execute(psm,
                         PSMSimulateScenario.SimulateScene.getSingleton(),
                         this);
