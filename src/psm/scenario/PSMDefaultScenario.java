@@ -40,6 +40,8 @@ public class PSMDefaultScenario extends XScenario {
     @Override
     protected void addScenes() {
         this.addScene(PSMDefaultScenario.ReadyScene.createSingleton(this));
+        this.addScene(PSMDefaultScenario.HideOtherLayersScene.
+            createSingleton(this));
     }
 
     public static class ReadyScene extends PSMScene {
@@ -126,6 +128,12 @@ public class PSMDefaultScenario extends XScenario {
                         PSMSimulateScenario.SimulateScene.getSingleton(),
                         this);
                     break;
+                case KeyEvent.VK_SHIFT:
+                    layerMgr.setHideOthers(true);
+                    XCmdToChangeScene.execute(psm,
+                        PSMDefaultScenario.HideOtherLayersScene.getSingleton(),
+                        this);
+                    break;
                 case KeyEvent.VK_UP:
                     PSMBrushMgr.getSingleton().increaseStrokeWidthForCurPtCurve(
                         increment);
@@ -170,14 +178,92 @@ public class PSMDefaultScenario extends XScenario {
         }
         
         private void drawPenTip(Graphics2D g2) {
-        g2.setColor(PSMBrushMgr.getSingleton().getColor());
-        g2.setStroke(PSMBrushMgr.getSingleton().getStroke());
-        float r = 
-            ((BasicStroke)PSMBrushMgr.getSingleton().getStroke()).getLineWidth() / 2;
-        Ellipse2D penTip = new Ellipse2D.Double(80 - r , 400 -r ,
-            2*r, 2*r);
-        g2.fill(penTip);
+            g2.setColor(PSMBrushMgr.getSingleton().getColor());
+            g2.setStroke(PSMBrushMgr.getSingleton().getStroke());
+            float r = 
+                ((BasicStroke)PSMBrushMgr.getSingleton().getStroke()).getLineWidth() / 2;
+            Ellipse2D penTip = new Ellipse2D.Double(80 - r , 400 -r ,
+                2*r, 2*r);
+            g2.fill(penTip);
+        }
     }
-    }
+    public static class HideOtherLayersScene extends PSMScene {
+        private static HideOtherLayersScene mSingleton = null;
+        public static HideOtherLayersScene createSingleton(XScenario scenario) {
+            assert (HideOtherLayersScene.mSingleton == null); //false: stop
+            HideOtherLayersScene.mSingleton =
+                new HideOtherLayersScene(scenario);
+            return HideOtherLayersScene.mSingleton;
+        }
     
+        public static HideOtherLayersScene getSingleton() {
+            assert (HideOtherLayersScene.mSingleton != null);
+            return HideOtherLayersScene.mSingleton;
+        }
+        
+        private HideOtherLayersScene(XScenario scenario) {
+            super(scenario);
+        }
+
+        @Override
+        public void handleMousePress(MouseEvent e) {
+
+        }
+
+        @Override
+        public void handleMouseDrag(MouseEvent e) {
+            
+        }
+
+        @Override
+        public void handleMouseRelease(MouseEvent e) {
+            
+        }
+
+        @Override
+        public void handleKeyDown(KeyEvent e) {
+
+        }
+
+        @Override
+        public void handleKeyUp(KeyEvent e) {
+            PSM psm = PSM.getSingleton();
+            PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
+            int code = e.getKeyCode();
+            switch (code) {
+                case KeyEvent.VK_SHIFT:
+                    layerMgr.setHideOthers(false);
+                    XCmdToChangeScene.execute(psm,
+                        this.mReturnScene,
+                        null);
+                    break;
+            }
+        }
+
+        @Override
+        public void updateSupportObjects() {
+            
+        }
+
+        @Override
+        public void renderWorldObjects(Graphics2D g2) {
+            PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
+            layerMgr.drawLayers(g2);
+        }
+
+        @Override
+        public void renderScreenObjects(Graphics2D g2) {
+            
+        }
+
+        @Override
+        public void getReady() {
+            
+        }
+
+        @Override
+        public void wrapUp() {
+            
+        }
+    }
 }

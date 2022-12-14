@@ -3,30 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/hyelim/Desktop/ID316_FinalProject-main/src/psm/cmd/PSMCmdToPan.java</file>
-            <file>file:/Users/hyelim/Desktop/ID316_FinalProject-main/src/psm/scenario/PSMLayerManageScenario.java</file>
-            <file>file:/Users/hyelim/Desktop/ID316_FinalProject-main/src/psm/gui/PSMGuiHighlightedLayer.java</file>
-            <file>file:/Users/hyelim/Desktop/ID316_FinalProject-main/src/psm/PSM.java</file>
-            <file>file:/Users/hyelim/Desktop/ID316_FinalProject-main/src/psm/scenario/PSMEmptyScenario.java</file>
-            <file>file:/Users/hyelim/Desktop/ID316_FinalProject-main/src/psm/scenario/PSMColorScenario.java</file>
-            <file>file:/Users/hyelim/Desktop/ID316_FinalProject-main/src/psm/gui/PSMFollowingGui.java</file>
-            <file>file:/Users/hyelim/Desktop/ID316_FinalProject-main/src/psm/gui/PSMGuiCharLayer.java</file>
-            <file>file:/Users/hyelim/Desktop/ID316_FinalProject-main/src/psm/PSMLayer.java</file>
-            <file>file:/Users/hyelim/Desktop/ID316_FinalProject-main/src/psm/cmd/PSMCmdToSetStartingScreenPt.java</file>
-            <file>file:/Users/hyelim/Desktop/ID316_FinalProject-main/src/psm/scenario/PSMNavigateScenario.java</file>
-            <file>file:/Users/hyelim/Desktop/ID316_FinalProject-main/src/psm/scenario/PSMDrawScenario.java</file>
-            <file>file:/Users/hyelim/Desktop/ID316_FinalProject-main/src/psm/scenario/PSMSimulateScenario.java</file>
-            <file>file:/Users/hyelim/Desktop/ID316_FinalProject-main/src/psm/PSMBrushMgr.java</file>
-            <file>file:/Users/hyelim/Desktop/ID316_FinalProject-main/src/psm/gui/PSMGuiNewLayer.java</file>
-            <file>file:/Users/hyelim/Desktop/ID316_FinalProject-main/src/psm/PSMCanvas2D.java</file>
-            <file>file:/Users/hyelim/Desktop/ID316_FinalProject-main/src/psm/gui/PSMGuiHandle.java</file>
-            <file>file:/Users/hyelim/Desktop/ID316_FinalProject-main/src/psm/cmd/PSMCmdToZoomTo.java</file>
-            <file>file:/Users/hyelim/Desktop/ID316_FinalProject-main/src/psm/scenario/PSMDefaultScenario.java</file>
-            <file>file:/Users/hyelim/Desktop/ID316_FinalProject-main/src/psm/gui/PSMGuiMgr.java</file>
-            <file>file:/Users/hyelim/Desktop/ID316_FinalProject-main/src/psm/PSMLayerMgr.java</file>
-            <file>file:/Users/hyelim/Desktop/ID316_FinalProject-main/src/psm/PSMScenarioMgr.java</file>
-            <file>file:/Users/hyelim/Desktop/ID316_FinalProject-main/src/psm/gui/PSMGuiColorChooser.java</file>
-            <file>file:/Users/hyelim/Desktop/ID316_FinalProject-main/src/psm/gui/PSMGuiTrashcan.java</file>
+            <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/scenario/PSMDefaultScenario.java</file>
+            <file>file:/C:/Users/jj139/OneDrive/Documents/NetBeansProjects/ParallaxSceneMaker/src/psm/PSMLayerMgr.java</file>
         </group>
     </open-files>
 </project-private>

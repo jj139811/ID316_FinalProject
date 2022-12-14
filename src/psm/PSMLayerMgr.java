@@ -25,6 +25,10 @@ public class PSMLayerMgr {
     }
     
     //field
+    private boolean mHideOthers = false;
+    public void setHideOthers(boolean mute) {
+        this.mHideOthers = mute;
+    }
     private ArrayList<PSMLayer> mLayers = null;
     private PSMLayer mFocusedLayer;
     public PSMLayer getFocusedLayer() {
@@ -161,6 +165,12 @@ public class PSMLayerMgr {
     }
     
     public void drawLayers(Graphics2D g) {
+        if (this.mHideOthers) {
+            if (this.mFocusedLayer != null) {
+                this.mFocusedLayer.render(g);
+            }
+            return;
+        }
         for (int i = this.mLayers.size() - 1; i >= 0; i--) {
             PSMLayer layer = this.mLayers.get(i);
             layer.render(g);
