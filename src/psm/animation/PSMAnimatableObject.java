@@ -11,7 +11,7 @@ import psm.PSMScreenMgr;
 
 public abstract class PSMAnimatableObject extends PSMAnimatable{
     //test
-    private static final boolean DRAW_BOX = true;
+    private static final boolean DRAW_BOX = false;
     //constant
     private static final long DEFAULT_DURATION = 500;
     //field

@@ -1,7 +1,9 @@
 package psm;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
@@ -13,7 +15,12 @@ public abstract class PSMLayer extends PSMAnimatableObject{
     //constant
     public static final float MAX_FACTOR = 1.0f;
     public static final float MIN_FACTOR = -2.0f;
+    private static final float FACTOR_PRECISION = 20.0f;
     //field
+    private boolean mShowBackground = false;
+    public void setShowBackground(boolean value) {
+        this.mShowBackground = value;
+    }
     private BufferedImage mContent = null;
     private Graphics2D mGraphics = null;
     public Graphics2D getGraphics() {
@@ -39,7 +46,8 @@ public abstract class PSMLayer extends PSMAnimatableObject{
         } else if (value < MIN_FACTOR) {
             value = MIN_FACTOR;
         }
-        this.mFactor = (float)((int)(10 *value)) / 10;
+        this.mFactor = (float)((int)(FACTOR_PRECISION *value)) /
+            FACTOR_PRECISION;
     }
     
     //constructor
@@ -88,10 +96,26 @@ public abstract class PSMLayer extends PSMAnimatableObject{
         if (this.mContent == null) {
             return;
         }
+        PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
+        Rectangle bg = new Rectangle(x, y, width, height);  
+        if (this.mShowBackground) {
+            g.setColor(new Color(1.0f, 1.0f, 1.0f, 0.95f));
+            g.fill(bg);
+        }
+        if (layerMgr.getFocusedLayer() == this) {
+            g.setColor(Color.red);
+            g.setStroke(new BasicStroke(2.0f));
+        } else {
+            g.setColor(Color.black);
+            g.setStroke(new BasicStroke(1.0f));
+        }
+        g.draw(bg);
         g.drawImage(this.mContent, x, y, width, height, null);
         if (SHOW_FACTOR) {
-            g.setColor(Color.red);
-            g.drawString(String.valueOf(this.mFactor), x, y);
+            int index = layerMgr.indexOf(this);
+            g.drawString(
+                ((index < 0)? "Char" : ("BG" + String.valueOf(index))) + " " +
+                "f=" + String.valueOf(this.mFactor), x, y);
         }
     }
 }

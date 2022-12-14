@@ -13,5 +13,8 @@ public class PSMGuiNewLayer extends PSMFollowingGui{
         Rectangle rect = new Rectangle(x, y, width, height);
         g.setColor(Color.white);
         g.fill(rect);
+        g.setColor(Color.black);
+        g.draw(rect);
+        g.drawString("new layer", x, y);
     }
 }

@@ -13,7 +13,7 @@ public class PSMLayerMgr {
     public static final int CHAR_WIDTH = 100;
     public static final int CHAR_HEIGHT = 150;
     
-    public static final float FACTOR_INCREMENT = 0.1f;
+    public static final float FACTOR_INCREMENT = 0.05f;
     
     //singleton
     private static PSMLayerMgr instance = null;
@@ -38,6 +38,12 @@ public class PSMLayerMgr {
     
     public int getNumLayers() {
         return this.mLayers.size();
+    }
+    public int indexOf(PSMLayer layer) {
+        if (this.mLayers.contains(layer)) {
+            return this.mLayers.indexOf(layer);
+        }
+        return -1;
     }
     public PSMLayer getLayerAt(int index) {
         if (index < 0) {
@@ -110,6 +116,7 @@ public class PSMLayerMgr {
             layer.setSize(
                 (int)(PANEL_WIDTH / scaleX),
                 (int)(PANEL_HEIGHT / scaleY), true);
+            layer.setShowBackground(true);
         }
         for (; i < this.mLayers.size(); i++) {
             int offset = (i - this.mFocusedIndex) * 50;
@@ -122,6 +129,7 @@ public class PSMLayerMgr {
             layer.setSize(
                 (int)(PANEL_WIDTH / scaleX),
                 (int)(PANEL_HEIGHT / scaleY), true);
+            layer.setShowBackground(true);
         }
         
         if (this.mFocusedLayer == this.mCharLayer) {
@@ -139,18 +147,22 @@ public class PSMLayerMgr {
                 (int)(CHAR_WIDTH / scaleX),
                 (int)(CHAR_HEIGHT / scaleY), true);
         }
+        this.mCharLayer.setShowBackground(true);
     }
     public void arrangeLayersToViewFormat(PSMCamera camera) {
         for (PSMLayer layer : this.mLayers) {
             layer.syncPosition(camera, true);
             layer.setSize(layer.getImgWidth(), layer.getImgHeight(), true);
+            layer.setShowBackground(false);
         }
         this.mCharLayer.syncPosition(camera, true);
         this.mCharLayer.setSize(CHAR_WIDTH, CHAR_HEIGHT, true);
+        this.mCharLayer.setShowBackground(false);
     }
     
     public void drawLayers(Graphics2D g) {
-        for (PSMLayer layer : this.mLayers) {
+        for (int i = this.mLayers.size() - 1; i >= 0; i--) {
+            PSMLayer layer = this.mLayers.get(i);
             layer.render(g);
         }
         this.mCharLayer.render(g);

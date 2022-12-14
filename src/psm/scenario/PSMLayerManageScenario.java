@@ -16,6 +16,8 @@ import psm.PSMCamera;
 import psm.PSMGestureMgr;
 import psm.PSMLayer;
 import psm.PSMLayerMgr;
+import static psm.PSMLayerMgr.PANEL_HEIGHT;
+import static psm.PSMLayerMgr.PANEL_WIDTH;
 import psm.PSMScene;
 import psm.PSMScreenMgr;
 import psm.gui.PSMGuiHandle;
@@ -678,6 +680,9 @@ public class PSMLayerManageScenario extends XScenario {
                 PSMBgLayer newLayer = new PSMBgLayer(factor);
                 layerMgr.addLayerToIndex(newLayer, focusedIndex);
                 layerMgr.setFocusedLayer(newLayer);
+                newLayer.setSize(
+                    (int)(PANEL_WIDTH / cam.getScaleX()),
+                    (int)(PANEL_HEIGHT / cam.getScaleX()), false);
                 
                 layerMgr.arrangeLayersToListFormat(cam);
             } else {
