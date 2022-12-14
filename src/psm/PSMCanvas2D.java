@@ -19,5 +19,6 @@ public class PSMCanvas2D extends JPanel{
         curScene.renderWorldObjects(g2);
         curScene.renderScreenObjects(g2);
         PSMGuiMgr.getSingleton().renderGuis(g2);
+        
     }
 }

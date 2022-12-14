@@ -3,12 +3,15 @@ package psm.scenario;
 import X.XApp;
 import X.XCmdToChangeScene;
 import X.XScenario;
+import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
 import psm.PSM;
 import psm.PSMBgLayer;
+import psm.PSMBrushMgr;
 import psm.PSMCamera;
 import psm.PSMGestureMgr;
 import psm.PSMLayer;
@@ -148,7 +151,7 @@ public class PSMLayerManageScenario extends XScenario {
 
         @Override
         public void renderScreenObjects(Graphics2D g2) {
-            
+            this.drawPenTip(g2);
         }
 
         @Override
@@ -160,6 +163,16 @@ public class PSMLayerManageScenario extends XScenario {
         public void wrapUp() {
             
         }
+        
+        private void drawPenTip(Graphics2D g2) {
+        g2.setColor(PSMBrushMgr.getSingleton().getColor());
+        g2.setStroke(PSMBrushMgr.getSingleton().getStroke());
+        float r = 
+            ((BasicStroke)PSMBrushMgr.getSingleton().getStroke()).getLineWidth() / 2;
+        Ellipse2D penTip = new Ellipse2D.Double(80 - r , 400 -r ,
+            2*r, 2*r);
+        g2.fill(penTip);
+    }
     }
     
     public static class   LayerManageReadyScene extends PSMScene {

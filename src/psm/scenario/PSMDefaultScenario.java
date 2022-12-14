@@ -3,11 +3,14 @@ package psm.scenario;
 import X.XApp;
 import X.XCmdToChangeScene;
 import X.XScenario;
+import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
 import psm.PSM;
+import psm.PSMBrushMgr;
 import psm.PSMCamera;
 import psm.PSMLayerMgr;
 import psm.PSMScene;
@@ -87,11 +90,18 @@ public class PSMDefaultScenario extends XScenario {
             PSMCamera cam = PSMScreenMgr.getSingleton().getCamera();
             PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
             PSMGuiMgr guiMgr = PSMGuiMgr.getSingleton();
+            float increment = PSMBrushMgr.
+                INCREMENT_FOR_CUR_STROKE_WIDTH;
             int code = e.getKeyCode();
             switch (code) {
                 case KeyEvent.VK_E:
                     XCmdToChangeScene.execute(PSM.getSingleton(),
                         PSMEraseScenario.EraseReadyScene.getSingleton(),
+                        this);
+                    break;
+                case KeyEvent.VK_C:
+                    XCmdToChangeScene.execute(psm,
+                        PSMColorScenario.ColorReadyScene.getSingleton(),
                         this);
                     break;
                 case KeyEvent.VK_SPACE:
@@ -115,6 +125,15 @@ public class PSMDefaultScenario extends XScenario {
                     XCmdToChangeScene.execute(psm,
                         PSMSimulateScenario.SimulateScene.getSingleton(),
                         this);
+                    break;
+                case KeyEvent.VK_UP:
+                    PSMBrushMgr.getSingleton().increaseStrokeWidthForCurPtCurve(
+                        increment);
+                    break;
+                case KeyEvent.VK_DOWN:
+                    PSMBrushMgr.getSingleton().increaseStrokeWidthForCurPtCurve(
+                        -increment);
+                    break;
                     //set camera focus(character)
             }
         }
@@ -137,7 +156,7 @@ public class PSMDefaultScenario extends XScenario {
 
         @Override
         public void renderScreenObjects(Graphics2D g2) {
-            
+            this.drawPenTip(g2);
         }
 
         @Override
@@ -149,6 +168,16 @@ public class PSMDefaultScenario extends XScenario {
         public void wrapUp() {
             
         }
+        
+        private void drawPenTip(Graphics2D g2) {
+        g2.setColor(PSMBrushMgr.getSingleton().getColor());
+        g2.setStroke(PSMBrushMgr.getSingleton().getStroke());
+        float r = 
+            ((BasicStroke)PSMBrushMgr.getSingleton().getStroke()).getLineWidth() / 2;
+        Ellipse2D penTip = new Ellipse2D.Double(80 - r , 400 -r ,
+            2*r, 2*r);
+        g2.fill(penTip);
+    }
     }
     
 }

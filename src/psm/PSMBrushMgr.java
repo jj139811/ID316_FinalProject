@@ -21,14 +21,25 @@ public class PSMBrushMgr {
         return instance;
     }
     
+    //constant
+    public static final float INCREMENT_FOR_CUR_STROKE_WIDTH = 1f;
+    public static final float MIN_STROKE_WIDTH = 3f;
+    
     //field
     private ArrayList<Point> mCurLine = null;
     private Color mCurColor = Color.BLACK;
+    public Color getColor() {
+        return this.mCurColor;
+    }
     public void setColor(Color color) {
         this.mCurColor = color;
     }
+    
     private float mCurStrokeWidth = 5f;
     private Stroke mCurStroke = null;
+    public Stroke getStroke() {
+        return this.mCurStroke;
+    }
     public void setStrokeWidth(float width) {
         this.mCurStrokeWidth = width;
         this.mCurStroke = new BasicStroke(width);
@@ -137,6 +148,17 @@ public class PSMBrushMgr {
         g.draw(path);
         
         g.setComposite(AlphaComposite.SrcOver);
+    }
+    
+    public void increaseStrokeWidthForCurPtCurve(float f) {
+        BasicStroke bs = (BasicStroke) this.mCurStroke;
+        float w = bs.getLineWidth();
+        w += f ;
+        if (w < MIN_STROKE_WIDTH) {
+            w = MIN_STROKE_WIDTH;
+        } 
+        this.mCurStroke = new BasicStroke(w, bs.getEndCap(),
+            bs.getLineJoin());
     }
     
     public void clear() {

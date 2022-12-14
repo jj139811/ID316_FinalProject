@@ -19,6 +19,9 @@ public class PSMGuiMgr {
     //constant
     private static final int HANDLE_WIDTH = 50;
     private static final int HANDLE_HEIGHT = 50;
+    private static final int COLOR_WHEEL_POS_X = 30;
+    private static final int COLOR_WHEEL_POS_Y = 430;
+    private static final int COLOR_WHEEL_RADIUS = 100;
     
     //field
     private ArrayList<PSMGui> mGuis = null;
@@ -50,6 +53,10 @@ public class PSMGuiMgr {
     public PSMGuiHighlightedLayer getHighlightedLayer() {
         return this.mHighlightedLayer;
     }
+    private PSMGuiColorChooser mColorChooser = null;
+    public PSMGuiColorChooser getColorChooser() {
+        return this.mColorChooser;
+    }
     
     //constructor
     private PSMGuiMgr() {
@@ -75,6 +82,12 @@ public class PSMGuiMgr {
             (PSM.CANVAS_HEIGHT - PSMLayerMgr.PANEL_HEIGHT) / 2,
             PSMLayerMgr.PANEL_WIDTH,
             PSMLayerMgr.PANEL_HEIGHT);
+        //color chooser 
+        this.mColorChooser = new PSMGuiColorChooser(COLOR_WHEEL_POS_X, 
+            COLOR_WHEEL_POS_Y, 
+            COLOR_WHEEL_RADIUS,
+            COLOR_WHEEL_RADIUS);
+
         
         //add uis
         // in rendering order
@@ -83,6 +96,7 @@ public class PSMGuiMgr {
         this.add(this.mNewLayer);
         this.add(this.mCharLayer);
         this.add(this.mHandle);
+        this.add(this.mColorChooser);
         //init gui transform
         arrangeUisToViewFormat(false);
     }
@@ -121,6 +135,8 @@ public class PSMGuiMgr {
         this.mCharLayer.setVisible(true);
         
         this.mHighlightedLayer.setVisible(false);
+        
+        this.mColorChooser.setVisible(true);
     }
     public void arrangeUisToListFormat(boolean enableAnimation) {
         this.mTrashcan.setPosition(
@@ -158,6 +174,8 @@ public class PSMGuiMgr {
         this.mCharLayer.setVisible(true);
         
         this.mHighlightedLayer.setVisible(true);
+        
+        this.mColorChooser.setVisible(false);
     }
     //method
     public void renderGuis(Graphics2D g) {

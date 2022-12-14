@@ -157,8 +157,8 @@ public abstract class PSMGui extends PSMAnimatable{
                 Rectangle2D boundingBox = new Rectangle2D.Float(
                     (int)this.curX, (int)this.curY,
                     (int)this.curW, (int)this.curH);
-                g.setColor(Color.red);
-                g.setStroke(new BasicStroke(0.5f));
+                g.setColor(Color.blue);
+                g.setStroke(new BasicStroke(2f));
                 g.draw(boundingBox);
             }
         }
