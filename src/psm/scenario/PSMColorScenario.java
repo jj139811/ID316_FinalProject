@@ -1,13 +1,16 @@
 package psm.scenario;
 
 import X.XApp;
+import X.XCmdToChangeScene;
 import X.XScenario;
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
+import psm.PSM;
 import psm.PSMBrushMgr;
+import psm.PSMLayerMgr;
 import psm.PSMScene;
 
 
@@ -75,7 +78,12 @@ public class PSMColorScenario extends XScenario {
 
         @Override
         public void handleKeyUp(KeyEvent e) {
-
+            PSM psm = PSM.getSingleton();
+            int code = e.getKeyCode();
+            switch(code) {
+                case KeyEvent.VK_C:
+                    XCmdToChangeScene.execute(psm, mReturnScene, null);
+            }
         }
 
         @Override
@@ -86,6 +94,8 @@ public class PSMColorScenario extends XScenario {
         @Override
         public void renderWorldObjects(Graphics2D g2) {
             // color wheel ui 그리기 
+            PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
+            layerMgr.drawLayers(g2);
         }
 
         @Override
@@ -153,7 +163,12 @@ public class PSMColorScenario extends XScenario {
 
         @Override
         public void handleKeyUp(KeyEvent e) {
-
+            PSM psm = PSM.getSingleton();
+            int code = e.getKeyCode();
+            switch(code) {
+                case KeyEvent.VK_C:
+                    XCmdToChangeScene.execute(psm, mReturnScene, null);
+            }
         }
 
         @Override
@@ -163,7 +178,8 @@ public class PSMColorScenario extends XScenario {
 
         @Override
         public void renderWorldObjects(Graphics2D g2) {
-            
+            PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
+            layerMgr.drawLayers(g2);
         }
 
         @Override
