@@ -4,8 +4,10 @@ import X.XApp;
 import X.XCmdToChangeScene;
 import X.XScenario;
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
@@ -100,6 +102,9 @@ public class PSMDrawScenario extends XScenario {
 
         @Override
         public void renderWorldObjects(Graphics2D g2) {
+            g2.setColor(Color.white);
+            Rectangle rect = new Rectangle(0,0, PSM.CANVAS_WIDTH, PSM.CANVAS_HEIGHT);
+            g2.fill(rect);
             PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
             layerMgr.drawLayers(g2);
         }
@@ -128,7 +133,7 @@ public class PSMDrawScenario extends XScenario {
         g2.setStroke(PSMBrushMgr.getSingleton().getStroke());
         float r = 
             ((BasicStroke)PSMBrushMgr.getSingleton().getStroke()).getLineWidth() / 2;
-        Ellipse2D penTip = new Ellipse2D.Double(80 - r , 400 -r ,
+        Ellipse2D penTip = new Ellipse2D.Double(40 - r , 40 -r ,
             2*r, 2*r);
         g2.fill(penTip);
         }

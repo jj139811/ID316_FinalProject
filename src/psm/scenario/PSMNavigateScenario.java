@@ -3,8 +3,10 @@ package psm.scenario;
 import X.XApp;
 import X.XCmdToChangeScene;
 import X.XScenario;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import psm.PSM;
@@ -108,6 +110,9 @@ public class PSMNavigateScenario extends XScenario {
 
         @Override
         public void renderWorldObjects(Graphics2D g2) {
+            g2.setColor(Color.white);
+            Rectangle rect = new Rectangle(0,0, PSM.CANVAS_WIDTH, PSM.CANVAS_HEIGHT);
+            g2.fill(rect);
             PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
             layerMgr.drawLayers(g2);
         }
@@ -194,6 +199,9 @@ public class PSMNavigateScenario extends XScenario {
 
         @Override
         public void renderWorldObjects(Graphics2D g2) {
+            g2.setColor(Color.white);
+            Rectangle rect = new Rectangle(0,0, PSM.CANVAS_WIDTH, PSM.CANVAS_HEIGHT);
+            g2.fill(rect);
             PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
             layerMgr.drawLayers(g2);
         }
@@ -278,6 +286,9 @@ public class PSMNavigateScenario extends XScenario {
 
         @Override
         public void renderWorldObjects(Graphics2D g2) {
+            g2.setColor(Color.white);
+            Rectangle rect = new Rectangle(0,0, PSM.CANVAS_WIDTH, PSM.CANVAS_HEIGHT);
+            g2.fill(rect);
             PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
             layerMgr.drawLayers(g2);
         }
@@ -360,6 +371,9 @@ public class PSMNavigateScenario extends XScenario {
 
         @Override
         public void renderWorldObjects(Graphics2D g2) {
+            g2.setColor(Color.white);
+            Rectangle rect = new Rectangle(0,0, PSM.CANVAS_WIDTH, PSM.CANVAS_HEIGHT);
+            g2.fill(rect);
             PSMLayerMgr layerMgr = PSMLayerMgr.getSingleton();
             layerMgr.drawLayers(g2);
         }

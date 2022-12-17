@@ -11,10 +11,15 @@ public class PSMGuiHandle extends PSMFollowingGui{
     }
     @Override
     protected void renderUi(Graphics2D g, int x, int y, int width, int height) {
-        Rectangle frame = new Rectangle(0, y, x + width, PSM.CANVAS_HEIGHT - y);
-        Rectangle rect = new Rectangle(x, y, width, height);
+//        Rectangle frame = new Rectangle(0, y, x + width, PSM.CANVAS_HEIGHT - y);
+//        Rectangle rect = new Rectangle(x, y, width, height);
+//        g.setColor(Color.gray);
+//        g.fill(rect);
+        int xpoints[] = {x, x, PSM.CANVAS_WIDTH};
+        int ypoints[] = {0, y+ height, y+ height};
+        int npoints = 3;
         g.setColor(Color.gray);
-        g.fill(rect);
-        g.draw(frame);
+        g.fillPolygon(xpoints, ypoints, npoints);
+        //g.draw(frame);
     }
 }

@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import psm.gui.PSMGuiMgr;
 
 public class PSMCanvas2D extends JPanel{
+    
     //constructor
     public PSMCanvas2D() {
         
