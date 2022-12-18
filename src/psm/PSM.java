@@ -10,10 +10,10 @@ import psm.gui.PSMGuiMgr;
 public class PSM extends XApp{
     //constant
     public static final int CANVAS_WIDTH = 800;
-    public static final int CANVAS_HEIGHT = 600;
+    public static final int CANVAS_HEIGHT = 550;
     
     public static final int CAMERA_BOUND_X = 1600;
-    public static final int CAMERA_BOUND_Y = 1200;
+    public static final int CAMERA_BOUND_Y = 1400;
     
     // singleton
     private static PSM instance = null;

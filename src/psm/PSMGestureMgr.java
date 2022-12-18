@@ -17,7 +17,7 @@ public class PSMGestureMgr {
     //constants
     public static final double MIN_START_ARM_LENGTH_FOR_SCALING = 100.0;
     public static final Point PIVOT_PT = new Point(100, 100);
-    private static final float TAP_TOLERANCE = 3.0f;
+    private static final float TAP_TOLERANCE = 1.0f;
     
     //field
     private ArrayList<Point> mPts = null;
